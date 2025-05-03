@@ -20,5 +20,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found:  " + e.getMessage());
     }
 
+    @ExceptionHandler(InvalidPetUpdateException.class)
+    public ResponseEntity<String> handleInvalidArgumentException(InvalidPetUpdateException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+
     //todo add new exception in the future
 }

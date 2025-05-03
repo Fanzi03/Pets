@@ -3,6 +3,7 @@ package org.example.service;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.example.entity.Pet;
+import org.example.exception.InvalidPetUpdateException;
 import org.example.repository.PetRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,14 @@ public class PetService {
     public Optional<Pet> update(Long id, Pet updatedPet){
         return petRepository.findById(id).map(
                 existPet -> {
+                    if(!existPet.getGender().equals(updatedPet.getGender())){
+                        throw new InvalidPetUpdateException("Gender cannot be changed!");
+                    }
+
+                    if(!existPet.getType().equals(updatedPet.getType())){
+                        throw new InvalidPetUpdateException("Type cannot be changed!");
+                    }
+                    
                     existPet.setName(updatedPet.getName());
                     existPet.setAge(updatedPet.getAge());
                     return petRepository.save(existPet);
