@@ -37,8 +37,8 @@ public class PetController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePet(@PathVariable Long id){
-        boolean deleted = petService.delete(id);
-        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        petService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
