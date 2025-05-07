@@ -2,8 +2,9 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.entity.Pet;
-import org.example.service.util.PetUpdate;
 import org.example.repository.PetRepository;
+import org.example.repository.UserRepository;
+import org.example.service.util.PetUpdate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PetService {
     private final PetRepository petRepository;
+    private final UserRepository userRepository;
 
     public List<Pet> getPets() {
         return petRepository.findAll();
@@ -36,7 +38,7 @@ public class PetService {
     }
 
     public Optional<Pet> update(Long id, Pet updatedPet){
-        return PetUpdate.update(id, updatedPet, petRepository);
+        return PetUpdate.update(id, updatedPet, petRepository, userRepository);
     }
 
     @Scheduled(cron = "0 0 0 * * *")

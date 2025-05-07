@@ -2,9 +2,12 @@ package org.example.service.util;
 
 
 import org.example.entity.Pet;
+import org.example.entity.User;
 import org.example.exception.InvalidPetUpdateException;
 import org.example.repository.PetRepository;
+import org.example.repository.UserRepository;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -12,7 +15,7 @@ public final class PetUpdate {
 
     private PetUpdate(){}
 
-    public static Optional<Pet> update(Long id, Pet updatedPet, PetRepository petRepository) {
+    public static Optional<Pet> update(Long id, Pet updatedPet, PetRepository petRepository, UserRepository userRepository) {
         return petRepository.findById(id).map(
                 existPet -> {
 
@@ -30,6 +33,11 @@ public final class PetUpdate {
 
                     if(existPet.getAge() != updatedPet.getAge()){
                         existPet.setAge(updatedPet.getAge());
+                    }
+                    if(updatedPet.getUser() != null && updatedPet.getUser().getId() != null && (existPet.getUser() == null || !existPet.getUser().getId().equals(updatedPet.getUser().getId()))){
+                        User user = userRepository.findById(updatedPet.getUser().getId()).orElseThrow(
+                                () -> new NoSuchElementException("User with id:" + id + " not found!"));
+                        existPet.setUser(user);
                     }
 
                     return petRepository.save(existPet);
