@@ -1,6 +1,7 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.entity.Pet;
 import org.example.entity.User;
 import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,10 @@ public class UserService {
 
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    public List<Pet> getUserPets(Long id) {
+        return userRepository.findById(id).map(User::getPets).orElseThrow(() -> new NoSuchElementException("User not found"));
     }
 
     public Optional<User> findUserById(Long id) {

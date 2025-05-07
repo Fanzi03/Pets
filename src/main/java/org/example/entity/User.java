@@ -1,6 +1,7 @@
 package org.example.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -28,5 +29,6 @@ public class User {
     private int age;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Pet> pets;
 }

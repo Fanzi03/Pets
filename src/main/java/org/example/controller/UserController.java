@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.entity.Pet;
 import org.example.entity.User;
 import org.example.service.UserService;
 
@@ -22,6 +23,11 @@ public class UserController {
     @GetMapping
     public List<User> getUsers() {
         return userService.getUsers();
+    }
+
+    @GetMapping("/{id}/pets")
+    public List<Pet> getUserPets(@PathVariable Long id){
+        return userService.getUserPets(id);
     }
 
     @GetMapping("/{id}")
