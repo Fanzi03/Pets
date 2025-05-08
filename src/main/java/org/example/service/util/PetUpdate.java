@@ -1,7 +1,7 @@
 package org.example.service.util;
 
 
-import org.example.dto.PetDTO;
+import org.example.dto.PetDataTransferObject;
 import org.example.dto.mapping.PetMapper;
 import org.example.entity.Pet;
 import org.example.entity.User;
@@ -17,7 +17,7 @@ public final class PetUpdate {
 
     private PetUpdate(){}
 
-    public static Optional<PetDTO> update(Long id, Pet updatedPet, PetRepository petRepository, UserRepository userRepository, PetMapper petMapper) {
+    public static Optional<PetDataTransferObject> update(Long id, Pet updatedPet, PetRepository petRepository, UserRepository userRepository, PetMapper petMapper) {
         return petRepository.findById(id).map(
                 existPet -> {
 

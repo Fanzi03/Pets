@@ -1,8 +1,8 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dto.PetDTO;
-import org.example.dto.UserDTO;
+import org.example.dto.PetDataTransferObject;
+import org.example.dto.UserDataTransferObject;
 import org.example.dto.mapping.PetMapper;
 import org.example.dto.mapping.UserMapper;
 import org.example.entity.User;
@@ -22,21 +22,21 @@ public class UserService {
     private final UserMapper userMapper;
     private final PetMapper petMapper;
 
-    public List<UserDTO> getUsers() {
+    public List<UserDataTransferObject> getUsers() {
         return userRepository.findAll().stream().map(userMapper::toDTO).collect(Collectors.toList());
     }
 
-    public List<PetDTO> getUserPets(Long id) {
+    public List<PetDataTransferObject> getUserPets(Long id) {
         return userRepository.findById(id).map(User::getPets)
                 .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_MESSAGE))
                 .stream().map(petMapper::toDTO).collect(Collectors.toList());
     }
 
-    public Optional<UserDTO> findUserById(Long id) {
+    public Optional<UserDataTransferObject> findUserById(Long id) {
         return userRepository.findById(id).map(userMapper::toDTO);
     }
 
-    public UserDTO createUser(User user) {
+    public UserDataTransferObject createUser(User user) {
         return userMapper.toDTO(userRepository.save(user));
     }
 
@@ -45,7 +45,7 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public Optional<UserDTO> update(User user, Long id) {
+    public Optional<UserDataTransferObject> update(User user, Long id) {
         return userRepository.findById(id).map(
                 exist ->
         {

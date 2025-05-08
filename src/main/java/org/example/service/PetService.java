@@ -1,7 +1,7 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dto.PetDTO;
+import org.example.dto.PetDataTransferObject;
 import org.example.dto.mapping.PetMapper;
 import org.example.entity.Pet;
 import org.example.repository.PetRepository;
@@ -24,15 +24,15 @@ public class PetService {
     private final PetMapper petMapper;
 
 
-    public List<PetDTO> getPets() {
+    public List<PetDataTransferObject> getPets() {
         return petRepository.findAll().stream().map(petMapper::toDTO).collect(Collectors.toList());
     }
 
-    public Optional<PetDTO> findById(Long petId){
+    public Optional<PetDataTransferObject> findById(Long petId){
         return petRepository.findById(petId).map(petMapper::toDTO);
     }
 
-    public PetDTO add(Pet pet){
+    public PetDataTransferObject add(Pet pet){
         pet.setCreatedAt(LocalDate.now());
         return petMapper.toDTO(petRepository.save(pet));
     }
@@ -42,7 +42,7 @@ public class PetService {
         petRepository.delete(pet);
     }
 
-    public Optional<PetDTO> update(Long id, Pet updatedPet){
+    public Optional<PetDataTransferObject> update(Long id, Pet updatedPet){
         return PetUpdate.update(id, updatedPet, petRepository, userRepository, petMapper);
     }
 

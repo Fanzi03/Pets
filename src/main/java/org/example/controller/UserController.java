@@ -1,8 +1,8 @@
 package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dto.PetDTO;
-import org.example.dto.UserDTO;
+import org.example.dto.PetDataTransferObject;
+import org.example.dto.UserDataTransferObject;
 import org.example.entity.User;
 import org.example.service.UserService;
 
@@ -22,32 +22,32 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<UserDTO> getUsers() {
+    public List<UserDataTransferObject> getUsers() {
         return userService.getUsers();
     }
 
     @GetMapping("/{id}/pets")
-    public List<PetDTO> getUserPets(@PathVariable Long id){
+    public List<PetDataTransferObject> getUserPets(@PathVariable Long id){
         return userService.getUserPets(id);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        UserDTO user = userService.findUserById(id)
+    public ResponseEntity<UserDataTransferObject> getUserById(@PathVariable Long id) {
+        UserDataTransferObject user = userService.findUserById(id)
                 .orElseThrow(() -> new NoSuchElementException("User with " + id + " not found"));
         return ResponseEntity.ok(user);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> userUpdate(@PathVariable Long id, @RequestBody User userUpdate) {
+    public ResponseEntity<UserDataTransferObject> userUpdate(@PathVariable Long id, @RequestBody User userUpdate) {
         return userService.update(userUpdate, id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody User user) {
-        UserDTO userCreated = userService.createUser(user);
+    public ResponseEntity<UserDataTransferObject> createUser(@RequestBody User user) {
+        UserDataTransferObject userCreated = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }
 
