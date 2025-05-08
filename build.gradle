@@ -18,6 +18,8 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.7.5'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    implementation 'org.mapstruct:mapstruct-processor:1.6.3'
     implementation 'org.projectlombok:lombok:1.18.30'  // или последняя версия
     compileOnly 'org.projectlombok:lombok:1.18.30'  // для компиляции
     annotationProcessor 'org.projectlombok:lombok:1.18.30'  // для аннотаций

@@ -1,6 +1,8 @@
 package org.example.service.util;
 
 
+import org.example.dto.PetDTO;
+import org.example.dto.mapping.PetMapper;
 import org.example.entity.Pet;
 import org.example.entity.User;
 import org.example.exception.InvalidPetUpdateException;
@@ -15,7 +17,7 @@ public final class PetUpdate {
 
     private PetUpdate(){}
 
-    public static Optional<Pet> update(Long id, Pet updatedPet, PetRepository petRepository, UserRepository userRepository) {
+    public static Optional<PetDTO> update(Long id, Pet updatedPet, PetRepository petRepository, UserRepository userRepository, PetMapper petMapper) {
         return petRepository.findById(id).map(
                 existPet -> {
 
@@ -40,7 +42,7 @@ public final class PetUpdate {
                         existPet.setUser(user);
                     }
 
-                    return petRepository.save(existPet);
+                    return petMapper.toDTO(petRepository.save(existPet));
                 }
         );
     }

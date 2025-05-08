@@ -1,6 +1,8 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.PetDTO;
+import org.example.dto.mapping.PetMapper;
 import org.example.entity.Pet;
 import org.example.repository.PetRepository;
 import org.example.repository.UserRepository;
@@ -12,24 +14,27 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PetService {
     private final PetRepository petRepository;
     private final UserRepository userRepository;
+    private final PetMapper petMapper;
 
-    public List<Pet> getPets() {
-        return petRepository.findAll();
+
+    public List<PetDTO> getPets() {
+        return petRepository.findAll().stream().map(petMapper::toDTO).collect(Collectors.toList());
     }
 
-    public Optional<Pet> findById(Long petId){
-        return petRepository.findById(petId);
+    public Optional<PetDTO> findById(Long petId){
+        return petRepository.findById(petId).map(petMapper::toDTO);
     }
 
-    public Pet add(Pet pet){
+    public PetDTO add(Pet pet){
         pet.setCreatedAt(LocalDate.now());
-        return petRepository.save(pet);
+        return petMapper.toDTO(petRepository.save(pet));
     }
 
     public void delete(Long petId){
@@ -37,8 +42,8 @@ public class PetService {
         petRepository.delete(pet);
     }
 
-    public Optional<Pet> update(Long id, Pet updatedPet){
-        return PetUpdate.update(id, updatedPet, petRepository, userRepository);
+    public Optional<PetDTO> update(Long id, Pet updatedPet){
+        return PetUpdate.update(id, updatedPet, petRepository, userRepository, petMapper);
     }
 
     @Scheduled(cron = "0 0 0 * * *")

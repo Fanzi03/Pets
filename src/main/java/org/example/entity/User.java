@@ -1,8 +1,6 @@
 package org.example.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +15,6 @@ import java.util.List;
 @Table(name = "users")
 @EqualsAndHashCode(exclude = "pets")
 @ToString(exclude = "pets")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +25,6 @@ public class User {
     private String password;
     private int age;
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private List<Pet> pets;
 }

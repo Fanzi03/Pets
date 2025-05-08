@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.PetDTO;
 import org.example.entity.Pet;
 import org.example.service.PetService;
 import org.springframework.http.HttpStatus;
@@ -19,19 +20,19 @@ public class PetController {
     private final PetService petService;
 
     @GetMapping
-    public List<Pet> getAllPets(){
+    public List<PetDTO> getAllPets(){
         return petService.getPets();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pet> getPetById(@PathVariable Long id){
-        Pet pet = petService.findById(id).orElseThrow(()  -> new NoSuchElementException("Pet with id: " + id + " not found"));
+    public ResponseEntity<PetDTO> getPetById(@PathVariable Long id){
+        PetDTO pet = petService.findById(id).orElseThrow(()  -> new NoSuchElementException("Pet with id: " + id + " not found"));
         return ResponseEntity.ok(pet);
     }
 
     @PostMapping
-    public ResponseEntity<Pet> addPet(@RequestBody Pet pet){
-        Pet createdPet = petService.add(pet);
+    public ResponseEntity<PetDTO> addPet(@RequestBody Pet pet){
+        PetDTO createdPet = petService.add(pet);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPet);
     }
 
@@ -42,9 +43,10 @@ public class PetController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pet> updatePet(@PathVariable Long id, @RequestBody Pet petUpdate){
+    public ResponseEntity<PetDTO> updatePet(@PathVariable Long id, @RequestBody Pet petUpdate){
         return petService.update(id, petUpdate).
                 map(ResponseEntity::ok).
                 orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
+
 }

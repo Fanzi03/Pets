@@ -1,7 +1,8 @@
 package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.entity.Pet;
+import org.example.dto.PetDTO;
+import org.example.dto.UserDTO;
 import org.example.entity.User;
 import org.example.service.UserService;
 
@@ -21,32 +22,32 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<User> getUsers() {
+    public List<UserDTO> getUsers() {
         return userService.getUsers();
     }
 
     @GetMapping("/{id}/pets")
-    public List<Pet> getUserPets(@PathVariable Long id){
+    public List<PetDTO> getUserPets(@PathVariable Long id){
         return userService.getUserPets(id);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.findUserById(id)
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        UserDTO user = userService.findUserById(id)
                 .orElseThrow(() -> new NoSuchElementException("User with " + id + " not found"));
         return ResponseEntity.ok(user);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> userUpdate(@PathVariable Long id, @RequestBody User userUpdate) {
+    public ResponseEntity<UserDTO> userUpdate(@PathVariable Long id, @RequestBody User userUpdate) {
         return userService.update(userUpdate, id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User userCreated = userService.createUser(user);
+    public ResponseEntity<UserDTO> createUser(@RequestBody User user) {
+        UserDTO userCreated = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }
 
