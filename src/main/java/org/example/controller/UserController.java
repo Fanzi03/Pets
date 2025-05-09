@@ -39,14 +39,14 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDataTransferObject> userUpdate(@PathVariable Long id, @RequestBody User userUpdate) {
+    public ResponseEntity<UserDataTransferObject> userUpdate(@PathVariable Long id, @RequestBody UserDataTransferObject userUpdate) {
         return userService.update(userUpdate, id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<UserDataTransferObject> createUser(@RequestBody User user) {
+    public ResponseEntity<UserDataTransferObject> createUser(@RequestBody UserDataTransferObject user) {
         UserDataTransferObject userCreated = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }

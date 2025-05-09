@@ -2,7 +2,6 @@ package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dto.PetDataTransferObject;
-import org.example.entity.Pet;
 import org.example.service.PetService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,7 @@ public class PetController {
     }
 
     @PostMapping
-    public ResponseEntity<PetDataTransferObject> addPet(@RequestBody Pet pet){
+    public ResponseEntity<PetDataTransferObject> addPet(@RequestBody PetDataTransferObject pet){
         PetDataTransferObject createdPet = petService.add(pet);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPet);
     }
@@ -43,7 +42,7 @@ public class PetController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PetDataTransferObject> updatePet(@PathVariable Long id, @RequestBody Pet petUpdate){
+    public ResponseEntity<PetDataTransferObject> updatePet(@PathVariable Long id, @RequestBody PetDataTransferObject petUpdate){
         return petService.update(id, petUpdate).
                 map(ResponseEntity::ok).
                 orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());

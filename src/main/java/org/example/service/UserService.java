@@ -36,8 +36,9 @@ public class UserService {
         return userRepository.findById(id).map(userMapper::toDTO);
     }
 
-    public UserDataTransferObject createUser(User user) {
-        return userMapper.toDTO(userRepository.save(user));
+    public UserDataTransferObject createUser(UserDataTransferObject userDataTransferObject) {
+        User userEntity = userMapper.toEntity(userDataTransferObject);
+        return userMapper.toDTO(userRepository.save(userEntity));
     }
 
     public void deleteById(Long id) {
@@ -45,15 +46,16 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public Optional<UserDataTransferObject> update(User user, Long id) {
+    public Optional<UserDataTransferObject> update(UserDataTransferObject userDataTransferObject, Long id) {
+        User userEntity = userMapper.toEntity(userDataTransferObject);
+
         return userRepository.findById(id).map(
                 exist ->
         {
-            exist.setFullName(user.getFullName());
-            exist.setPassword(user.getPassword());
-            exist.setAge(user.getAge());
-            exist.setEmail(user.getEmail());
-            exist.setPets(user.getPets());
+            exist.setFullName(userEntity.getFullName());
+            exist.setPassword(userEntity.getPassword());
+            exist.setAge(userEntity.getAge());
+            exist.setEmail(userEntity.getEmail());
             return userMapper.toDTO(userRepository.save(exist));
         });
     }

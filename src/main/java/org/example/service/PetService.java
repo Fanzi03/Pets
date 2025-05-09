@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.PetDataTransferObject;
 import org.example.dto.mapping.PetMapper;
 import org.example.entity.Pet;
+import org.example.entity.User;
 import org.example.repository.PetRepository;
 import org.example.repository.UserRepository;
 import org.example.service.util.PetUpdate;
@@ -32,9 +33,18 @@ public class PetService {
         return petRepository.findById(petId).map(petMapper::toDTO);
     }
 
-    public PetDataTransferObject add(Pet pet){
-        pet.setCreatedAt(LocalDate.now());
-        return petMapper.toDTO(petRepository.save(pet));
+    public PetDataTransferObject add(PetDataTransferObject petDataTransferObject){
+        Pet petEntity = petMapper.toEntity(petDataTransferObject);
+        Long userId = petDataTransferObject.getUserId();
+
+        if(userId != null){
+            User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User with id " + userId + " not found"));
+            petEntity.setUser(user);
+        }
+        else petEntity.setUser(null); // without owner
+
+        petEntity.setCreatedAt(LocalDate.now());
+        return petMapper.toDTO(petRepository.save(petEntity));
     }
 
     public void delete(Long petId){
@@ -42,8 +52,8 @@ public class PetService {
         petRepository.delete(pet);
     }
 
-    public Optional<PetDataTransferObject> update(Long id, Pet updatedPet){
-        return PetUpdate.update(id, updatedPet, petRepository, userRepository, petMapper);
+    public Optional<PetDataTransferObject> update(Long id, PetDataTransferObject updatedPetDataTransferObject){
+        return PetUpdate.update(id, updatedPetDataTransferObject, petRepository, userRepository, petMapper);
     }
 
     @Scheduled(cron = "0 0 0 * * *")
