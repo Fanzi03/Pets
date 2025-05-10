@@ -26,10 +26,10 @@ public class UserController {
         return userService.getUsers();
     }
 
-//    @GetMapping("/{id}/pets")
-//    public List<PetDataTransferObject> getUserPets(@PathVariable Long id){
-//        return userService.getUserPets(id);
-//    }
+    @GetMapping("/{id}/pets")
+    public List<PetDataTransferObject> getUserPets(@PathVariable Long id){
+        return userService.getUserPets(id);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDataTransferObject> getUserById(@PathVariable Long id) {

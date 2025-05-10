@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
     private static final String NOT_FOUND_MESSAGE = "User not found";
+    private static final String ALREADY_EXISTS_MESSAGE = " already exists";
     private final UserMapper userMapper;
     private final PetMapper petMapper;
 
@@ -26,17 +27,28 @@ public class UserService {
         return userRepository.findAll().stream().map(userMapper::toDTO).collect(Collectors.toList());
     }
 
-//    public List<PetDataTransferObject> getUserPets(Long id) {
-//        return userRepository.findById(id).map(User::getPets)
-//                .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_MESSAGE))
-//                .stream().map(petMapper::toDTO).collect(Collectors.toList());
-//    }
+    public List<PetDataTransferObject> getUserPets(Long id) {
+        return userRepository.findById(id).map(User::getPets)
+                .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_MESSAGE))
+                .stream().map(petMapper::toDTO).collect(Collectors.toList());
+    }
 
     public Optional<UserDataTransferObject> findUserById(Long id) {
         return userRepository.findById(id).map(userMapper::toDTO);
     }
 
     public UserDataTransferObject createUser(UserDataTransferObject userDataTransferObject) {
+        if(userRepository.existsByEmail(userDataTransferObject.getEmail())) {
+            throw new IllegalArgumentException("Email: " +
+                    userDataTransferObject.getEmail() + ALREADY_EXISTS_MESSAGE);
+        }
+
+        if (userRepository.existsByFullName(userDataTransferObject.getFullName())) {
+            throw new IllegalArgumentException("FullName: " + userDataTransferObject.getFullName() +
+                    ALREADY_EXISTS_MESSAGE);
+        }
+
+
         User userEntity = userMapper.toEntity(userDataTransferObject);
         return userMapper.toDTO(userRepository.save(userEntity));
     }
@@ -52,7 +64,7 @@ public class UserService {
         return userRepository.findById(id).map(
                 exist ->
         {
-            exist.setFullName(userEntity.getFullName());
+        //    exist.setFullName(userEntity.getFullName());
             exist.setPassword(userEntity.getPassword());
             exist.setAge(userEntity.getAge());
             exist.setEmail(userEntity.getEmail());

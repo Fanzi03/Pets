@@ -14,12 +14,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name", unique = true)
     private String fullName;
+    @Column(name = "email", unique = true)
     private String email;
     private String password;
     private int age;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-//    private List<Pet> pets;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Pet> pets;
 }

@@ -1,15 +1,15 @@
 package org.example.dto;
 
+import lombok.AccessLevel;
 import lombok.Data;
-
-import java.util.List;
+import lombok.experimental.FieldDefaults;
 
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDataTransferObject {
-    private Long id;
-    private String fullName;
-    private String email;
-    private String password;
-    private int age;
-    private List<PetDataTransferObject> pets;
+    Long id;
+    String fullName;
+    String email;
+    String password;
+    int age;
 }

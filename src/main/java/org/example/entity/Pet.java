@@ -25,9 +25,9 @@ public class Pet {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public void setAge(int age) {
         this.age = age;
