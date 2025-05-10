@@ -42,18 +42,18 @@ public final class PetUpdate {
                         existPet.setAge(updatedPetDTO.getAge());
                     }
 
-                    Long userId = updatedPetDTO.getUserId();
-
-                    if(userId == null){
-                        existPet.setUser(null);
-                    }
-                    else{
-                        if(existPet.getUser() == null || !existPet.getUser().getId().equals(userId)) {
-                        User user = userRepository.findById(userId).orElseThrow(
-                                () -> new NoSuchElementException("User with id:" + id + " not found!"));
-                          existPet.setUser(user);
-                        }
-                    }
+//                    Long userId = updatedPetDTO.getUserId();
+//
+//                    if(userId == null){
+//                        existPet.setUser(null);
+//                    }
+//                    else{
+//                        if(existPet.getUser() == null || !existPet.getUser().getId().equals(userId)) {
+//                        User user = userRepository.findById(userId).orElseThrow(
+//                                () -> new NoSuchElementException("User with id:" + id + " not found!"));
+//                          existPet.setUser(user);
+//                        }
+//                    }
 
                     return petMapper.toDTO(petRepository.save(existPet));
                 }

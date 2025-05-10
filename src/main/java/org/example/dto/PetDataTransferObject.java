@@ -6,11 +6,11 @@ import org.example.entity.Gender;
 
 @Data
 public class PetDataTransferObject {
-    private Long id;
+//    private Long id;
     private String name;
     private String type;
     private Gender gender;
     private int age;
-    private Long userId;
-    private String ownerName;
+//    private Long userId;
+//    private String ownerName;
 }

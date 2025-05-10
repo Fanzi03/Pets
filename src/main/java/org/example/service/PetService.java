@@ -35,18 +35,18 @@ public class PetService {
 
     public PetDataTransferObject add(PetDataTransferObject petDataTransferObject){
         Pet petEntity = petMapper.toEntity(petDataTransferObject);
-        Long userId = petDataTransferObject.getUserId();
+//        Long userId = petDataTransferObject.getUserId();
        // System.out.println("User in Pet: " + petDataTransferObject.getUserId()); // не должен быть null
-        System.out.println("User ID: " + petEntity.getUser().getId()); // должен быть не null
-        System.out.println("userId from DTO: " + userId);
+//        System.out.println("User ID: " + petEntity.getUser().getId()); // должен быть не null
+//        System.out.println("userId from DTO: " + userId);
 
-        if(userId != null){
-            User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User with id " + userId + " not found"));
-            System.out.println("User found: " + user.getFullName());
-            petEntity.setUser(user);
-            System.out.println("User in petEntity: " + petEntity.getUser());
-        }
-        else petEntity.setUser(null); // without owner
+//        if(userId != null){
+//            User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User with id " + userId + " not found"));
+//            System.out.println("User found: " + user.getFullName());
+//            petEntity.setUser(user);
+//            System.out.println("User in petEntity: " + petEntity.getUser());
+//        }
+//        else petEntity.setUser(null); // without owner
 
         petEntity.setCreatedAt(LocalDate.now());
         return petMapper.toDTO(petRepository.save(petEntity));
