@@ -26,11 +26,11 @@ public class UserService {
         return userRepository.findAll().stream().map(userMapper::toDTO).collect(Collectors.toList());
     }
 
-    public List<PetDataTransferObject> getUserPets(Long id) {
-        return userRepository.findById(id).map(User::getPets)
-                .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_MESSAGE))
-                .stream().map(petMapper::toDTO).collect(Collectors.toList());
-    }
+//    public List<PetDataTransferObject> getUserPets(Long id) {
+//        return userRepository.findById(id).map(User::getPets)
+//                .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_MESSAGE))
+//                .stream().map(petMapper::toDTO).collect(Collectors.toList());
+//    }
 
     public Optional<UserDataTransferObject> findUserById(Long id) {
         return userRepository.findById(id).map(userMapper::toDTO);

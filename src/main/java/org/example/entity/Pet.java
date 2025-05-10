@@ -22,7 +22,7 @@ public class Pet {
     @Column(name = "birthyear")
     private int birthYear;
 
-    @Column(name = "created_at", updatable = false, insertable = false)
+    @Column(name = "created_at")
     private LocalDate createdAt;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
