@@ -20,6 +20,6 @@ public class User {
     private String password;
     private int age;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    private List<Pet> pets;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+//    private List<Pet> pets;
 }
