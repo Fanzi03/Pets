@@ -1,27 +1,33 @@
-package org.example.service.util;
+package org.example.service.util.updates;
 
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.dto.PetDataTransferObject;
 import org.example.dto.mapping.PetMapper;
 import org.example.entity.User;
 import org.example.exception.InvalidPetUpdateException;
 import org.example.repository.PetRepository;
 import org.example.repository.UserRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public class PetUpdateService {
+    PetRepository petRepository;
+    PetMapper petMapper;
+    UserRepository userRepository;
 
-public final class PetUpdate {
-
-    private PetUpdate(){}
-
-    public static Optional<PetDataTransferObject> update(
+    @Transactional
+    public Optional<PetDataTransferObject> update(
             Long id,
-            PetDataTransferObject updatedPetDTO,
-            PetRepository petRepository,
-            UserRepository userRepository,
-            PetMapper petMapper
+            PetDataTransferObject updatedPetDTO
     ) {
         return petRepository.findById(id).map(
                 existPet -> {
@@ -48,9 +54,9 @@ public final class PetUpdate {
                         existPet.setUser(null);
                     }
                     else{
-                        if(existPet.getUser() == null || existPet.getUser().getUserName().equals(ownerName)) {
+                        if(existPet.getUser() == null || !existPet.getUser().getUserName().equals(ownerName)) {
                         User user = userRepository.findByUserName(ownerName).orElseThrow(
-                                () -> new NoSuchElementException("User with id:" + ownerName + " not found!"));
+                                () -> new NoSuchElementException("User with userName:" + ownerName + " not found!"));
                           existPet.setUser(user);
                         }
                     }

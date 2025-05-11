@@ -1,12 +1,16 @@
 package org.example.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.dto.PetDataTransferObject;
 import org.example.dto.UserDataTransferObject;
 import org.example.dto.mapping.PetMapper;
 import org.example.dto.mapping.UserMapper;
 import org.example.entity.User;
 import org.example.repository.UserRepository;
+import org.example.service.util.add.UserCreateService;
+import org.example.service.util.updates.UserUpdateService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +20,15 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserService {
-    private final UserRepository userRepository;
-    private static final String NOT_FOUND_MESSAGE = "User not found";
-    private static final String ALREADY_EXISTS_MESSAGE = " already exists";
-    private final UserMapper userMapper;
-    private final PetMapper petMapper;
+    UserRepository userRepository;
+    static String NOT_FOUND_MESSAGE = "User not found";
+    public static String ALREADY_EXISTS_MESSAGE = "- already exists";
+    UserMapper userMapper;
+    PetMapper petMapper;
+    UserCreateService userCreateService;
+    UserUpdateService userUpdateService;
 
     public List<UserDataTransferObject> getUsers() {
         return userRepository.findAll().stream().map(userMapper::toDTO).collect(Collectors.toList());
@@ -38,19 +45,7 @@ public class UserService {
     }
 
     public UserDataTransferObject createUser(UserDataTransferObject userDataTransferObject) {
-        if(userRepository.existsByEmail(userDataTransferObject.getEmail())) {
-            throw new IllegalArgumentException("Email: " +
-                    userDataTransferObject.getEmail() + ALREADY_EXISTS_MESSAGE);
-        }
-
-        if (userRepository.existsByUserName(userDataTransferObject.getUserName())) {
-            throw new IllegalArgumentException("Username: " + userDataTransferObject.getUserName() +
-                    ALREADY_EXISTS_MESSAGE);
-        }
-
-
-        User userEntity = userMapper.toEntity(userDataTransferObject);
-        return userMapper.toDTO(userRepository.save(userEntity));
+        return userCreateService.create(userDataTransferObject);
     }
 
     public void deleteById(Long id) {
@@ -59,16 +54,6 @@ public class UserService {
     }
 
     public Optional<UserDataTransferObject> update(UserDataTransferObject userDataTransferObject, Long id) {
-        User userEntity = userMapper.toEntity(userDataTransferObject);
-
-        return userRepository.findById(id).map(
-                exist ->
-        {
-        //    exist.setFullName(userEntity.getFullName());
-            exist.setPassword(userEntity.getPassword());
-            exist.setAge(userEntity.getAge());
-            exist.setEmail(userEntity.getEmail());
-            return userMapper.toDTO(userRepository.save(exist));
-        });
+        return userUpdateService.update(userDataTransferObject, id);
     }
 }

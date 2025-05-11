@@ -1,7 +1,6 @@
 package org.example.exception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -29,6 +28,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidPetUpdateException.class)
     public ResponseEntity<String> handleInvalidArgumentException(InvalidPetUpdateException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidUserUpdateException.class)
+    public ResponseEntity<String> handleInvalidArgumentException(InvalidUserUpdateException e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

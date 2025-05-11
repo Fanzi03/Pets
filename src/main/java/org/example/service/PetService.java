@@ -7,7 +7,12 @@ import org.example.entity.Pet;
 import org.example.entity.User;
 import org.example.repository.PetRepository;
 import org.example.repository.UserRepository;
-import org.example.service.util.PetUpdate;
+import org.example.service.util.add.PetCreateService;
+import org.example.service.util.updates.PetUpdateService;
+import org.hibernate.sql.Update;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +26,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PetService {
     private final PetRepository petRepository;
-    private final UserRepository userRepository;
     private final PetMapper petMapper;
+    private final PetCreateService petCreateService;
+    private final PetUpdateService petUpdateService;
 
 
     public List<PetDataTransferObject> getPets() {
@@ -34,24 +40,7 @@ public class PetService {
     }
 
     public PetDataTransferObject add(PetDataTransferObject petDataTransferObject){
-        Pet petEntity = petMapper.toEntity(petDataTransferObject);
-
-        String ownerName = petDataTransferObject.getOwnerName();
-
-        System.out.println("User in Pet: " + ownerName); // не должен быть null
-//        System.out.println("User ID: " + petEntity.getUser().getId()); // должен быть не null
-//        System.out.println("userId from DTO: " + userId);
-
-        if(ownerName != null && !ownerName.isBlank()){
-            User user = userRepository.findByUserName(ownerName).orElseThrow(() -> new NoSuchElementException("User with id " + ownerName + " not found"));
-            System.out.println("User found: " + user.getFullName());
-            petEntity.setUser(user);
-            System.out.println("User in petEntity: " + petEntity.getUser());
-        }
-        else petEntity.setUser(null); // without owner
-
-        petEntity.setCreatedAt(LocalDate.now());
-        return petMapper.toDTO(petRepository.save(petEntity));
+        return petCreateService.add(petDataTransferObject);
     }
 
     public void delete(Long petId){
@@ -60,15 +49,11 @@ public class PetService {
     }
 
     public Optional<PetDataTransferObject> update(Long id, PetDataTransferObject updatedPetDataTransferObject){
-        return PetUpdate.update(id, updatedPetDataTransferObject, petRepository, userRepository, petMapper);
+        return petUpdateService.update(id, updatedPetDataTransferObject);
     }
 
     @Scheduled(cron = "0 0 0 * * *")
     public void incrementAllPetsAge(){
-        List<Pet> pets = petRepository.findAll();
-        for(Pet pet : pets){
-            pet.setAge(pet.getAge()+1);
-        }
-        petRepository.saveAll(pets);
+        petRepository.incrementAllAge();
     }
 }
