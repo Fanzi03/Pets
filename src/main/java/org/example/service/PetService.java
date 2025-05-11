@@ -43,7 +43,7 @@ public class PetService {
 //        System.out.println("userId from DTO: " + userId);
 
         if(ownerName != null && !ownerName.isBlank()){
-            User user = userRepository.findByFullName(ownerName).orElseThrow(() -> new NoSuchElementException("User with id " + ownerName + " not found"));
+            User user = userRepository.findByUserName(ownerName).orElseThrow(() -> new NoSuchElementException("User with id " + ownerName + " not found"));
             System.out.println("User found: " + user.getFullName());
             petEntity.setUser(user);
             System.out.println("User in petEntity: " + petEntity.getUser());

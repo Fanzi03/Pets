@@ -2,6 +2,7 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.entity.enums.Gender;
 
 import java.time.LocalDate;
 import java.time.Year;

@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 public interface PetMapper {
 //    @Mapping(target = "userId", source = "user.id")
     @Mapping(target = "ownerName",
-            expression = "java(pet.getUser() != null ? pet.getUser().getFullName() : null)")
+            expression = "java(pet.getUser() != null ? pet.getUser().getUserName() : null)")
     PetDataTransferObject toDTO(Pet pet);
 
 //    @Mapping(target = "user", expression = "java(mapUserFromId(petDataTransferObject.getUserId()))")

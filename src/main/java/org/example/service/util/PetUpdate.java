@@ -48,8 +48,8 @@ public final class PetUpdate {
                         existPet.setUser(null);
                     }
                     else{
-                        if(existPet.getUser() == null || existPet.getUser().getFullName().equals(ownerName)) {
-                        User user = userRepository.findByFullName(ownerName).orElseThrow(
+                        if(existPet.getUser() == null || existPet.getUser().getUserName().equals(ownerName)) {
+                        User user = userRepository.findByUserName(ownerName).orElseThrow(
                                 () -> new NoSuchElementException("User with id:" + ownerName + " not found!"));
                           existPet.setUser(user);
                         }

@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.PetDataTransferObject;
 import org.example.service.PetService;
@@ -30,7 +31,7 @@ public class PetController {
     }
 
     @PostMapping
-    public ResponseEntity<PetDataTransferObject> addPet(@RequestBody PetDataTransferObject pet){
+    public ResponseEntity<PetDataTransferObject> addPet(@RequestBody @Valid PetDataTransferObject pet){
         PetDataTransferObject createdPet = petService.add(pet);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPet);
     }
@@ -42,7 +43,7 @@ public class PetController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PetDataTransferObject> updatePet(@PathVariable Long id, @RequestBody PetDataTransferObject petUpdate){
+    public ResponseEntity<PetDataTransferObject> updatePet(@PathVariable Long id, @RequestBody @Valid PetDataTransferObject petUpdate){
         return petService.update(id, petUpdate).
                 map(ResponseEntity::ok).
                 orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());

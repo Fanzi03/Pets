@@ -43,8 +43,8 @@ public class UserService {
                     userDataTransferObject.getEmail() + ALREADY_EXISTS_MESSAGE);
         }
 
-        if (userRepository.existsByFullName(userDataTransferObject.getFullName())) {
-            throw new IllegalArgumentException("FullName: " + userDataTransferObject.getFullName() +
+        if (userRepository.existsByUserName(userDataTransferObject.getUserName())) {
+            throw new IllegalArgumentException("Username: " + userDataTransferObject.getUserName() +
                     ALREADY_EXISTS_MESSAGE);
         }
 

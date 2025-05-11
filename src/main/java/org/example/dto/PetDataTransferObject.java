@@ -1,18 +1,27 @@
 package org.example.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import org.example.entity.Gender;
+import org.example.entity.enums.Gender;
+import org.example.validation.annotation.AllowedTypes;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PetDataTransferObject {
     Long id;
+    @Size(min = 2, max = 30)
+    @NotBlank(message = "Name is required")
     String name;
+    @NotBlank(message = "Type is required")
+    @AllowedTypes(value = {"cat", "dog", "bear", "parrot"}, message = "Type must be exist")
     String type;
+    @NotNull(message = "Gender is required")
     Gender gender;
-    int age;
+    @NotNull(message = "Age is required, please write approximately")
+    @Min(value = 0,message = "age must be positive")
+    @Max(value = 40, message = "Too old for a pet")
+    Integer age;
     String ownerName;
 }
