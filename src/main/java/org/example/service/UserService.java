@@ -3,6 +3,7 @@ package org.example.service;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.example.dto.PetDataTransferObject;
 import org.example.dto.UserDataTransferObject;
 import org.example.dto.mapping.PetMapper;
@@ -18,6 +19,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -35,9 +37,13 @@ public class UserService {
     }
 
     public List<PetDataTransferObject> getUserPets(Long id) {
-        return userRepository.findById(id).map(User::getPets)
-                .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_MESSAGE))
+        log.debug("Fetching pets for user {}", id);
+        List<PetDataTransferObject> pets =  userRepository.findById(id).map(User::getPets)
+                .orElseThrow(() -> {log.warn("User {} not found", id);
+                    return new NoSuchElementException(NOT_FOUND_MESSAGE);})
                 .stream().map(petMapper::toDTO).collect(Collectors.toList());
+        log.debug("Found {} pets for user with ID: {}", pets.size(), id);
+        return pets;
     }
 
     public Optional<UserDataTransferObject> findUserById(Long id) {
