@@ -3,12 +3,14 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "users")
+@ToString(exclude = "pets")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

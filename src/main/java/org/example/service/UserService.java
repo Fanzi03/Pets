@@ -37,13 +37,9 @@ public class UserService {
     }
 
     public List<PetDataTransferObject> getUserPets(Long id) {
-        log.debug("Fetching pets for user {}", id);
-        List<PetDataTransferObject> pets =  userRepository.findById(id).map(User::getPets)
-                .orElseThrow(() -> {log.warn("User {} not found", id);
-                    return new NoSuchElementException(NOT_FOUND_MESSAGE);})
+        return userRepository.findById(id).map(User::getPets)
+                .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_MESSAGE))
                 .stream().map(petMapper::toDTO).collect(Collectors.toList());
-        log.debug("Found {} pets for user with ID: {}", pets.size(), id);
-        return pets;
     }
 
     public Optional<UserDataTransferObject> findUserById(Long id) {

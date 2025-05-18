@@ -11,6 +11,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Aspect
 @Component
@@ -27,6 +28,7 @@ public class LoggingAspect {
     public void beforeController(JoinPoint joinPoint){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = null;
+
         if(attributes != null){
             request = attributes.getRequest();
         }
@@ -47,9 +49,11 @@ public class LoggingAspect {
 
         Object[] args = joinPoint.getArgs();
 
-        String argsString = args.length > 0 ? Arrays.toString(args) : "METHOD HAS NO ARGUMENTS";
+        String argsString = args.length > 0 ? Arrays.stream(args).
+                map(arg -> arg == null ? "null" : arg.getClass().getSimpleName())
+                .collect(Collectors.joining(", ")): "METHOD HAS NO ARGUMENTS";
 
-        log.info("RUN SERVICE: SERVICE_METHOD {}.{}\n METHOD ARGUMENTS: [{}]",
+        log.info("RUN SERVICE: SERVICE_METHOD {}.{} METHOD ARGUMENTS: [{}]",
             className, methodName, argsString);
     }
 
@@ -57,7 +61,7 @@ public class LoggingAspect {
     public void doAfterReturning(JoinPoint joinPoint, Object returnObject){
         log.info("Controller Method executed successfully: {}.{}",
                 joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
-        log.info("RETURN VALUE: {}", returnObject);
+        log.info("RETURN VALUE: {}", returnObject != null ? returnObject.getClass().getSimpleName() : "null");
     }
 
     @Around("controllerLog()")
