@@ -406,3 +406,743 @@ java.util.NoSuchElementException: User with 1 not found
 2025-06-13 14:52:36 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-06-13 14:52:36 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-06-13 14:52:36 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:16:11 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:16:11 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 38274 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:16:11 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:16:11 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:16:11 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:16:11 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:16:12 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:16:12 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:16:12 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:16:12 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:16:12 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:16:12 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 817 ms
+2025-06-13 17:16:12 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:16:12 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3ffd4b12
+2025-06-13 17:16:12 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:16:12 INFO  [main] liquibase.ui - INFO: The drop-all command may result in unrecoverable destructive changes to objects at 'jdbc:postgresql://localhost:5432/pets_app_db'.
+To protect against unwanted drops, set --requireForce=true, which will require a --force=true flag on the command.
+Learn more at https://docs.liquibase.com/dropall.
+
+2025-06-13 17:16:12 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:16:13 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:16:13 INFO  [main] liquibase.command - Dropping Database Objects in schema: pets_app_db.public
+2025-06-13 17:16:13 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:16:13 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:16:13 INFO  [main] liquibase.database - Successfully deleted all supported object types in schema pets_app_db.public.
+2025-06-13 17:16:13 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:16:13 WARN  [main] liquibase.lockservice - Failed to release change log lock
+2025-06-13 17:16:13 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:16:13 INFO  [main] liquibase.ui - All objects dropped from postgres@jdbc:postgresql://localhost:5432/pets_app_db
+2025-06-13 17:16:13 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:16:15 INFO  [main] liquibase.command - Logging exception.
+2025-06-13 17:16:15 INFO  [main] liquibase.ui - ERROR: Exception Details
+2025-06-13 17:16:15 INFO  [main] liquibase.ui - ERROR: Exception Primary Class:  ChangeLogParseException
+2025-06-13 17:16:15 INFO  [main] liquibase.ui - ERROR: Exception Primary Reason:  classpath:db.changelog-master.yaml does not exist
+2025-06-13 17:16:15 INFO  [main] liquibase.ui - ERROR: Exception Primary Source:  4.32.0
+2025-06-13 17:16:15 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:16:15 WARN  [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'liquibase' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: liquibase.exception.CommandExecutionException: liquibase.exception.ChangeLogParseException: classpath:db.changelog-master.yaml does not exist
+2025-06-13 17:16:15 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:16:15 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:16:15 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-06-13 17:16:15 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-13 17:16:15 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Liquibase failed to start because no changelog could be found at 'classpath:db.changelog-master.yaml'.
+
+Action:
+
+Make sure a Liquibase changelog is present at the configured path.
+
+2025-06-13 17:16:36 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:16:36 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 38939 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:16:36 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:16:36 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:16:37 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:16:37 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:16:37 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:16:37 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:16:37 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:16:37 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:16:37 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:16:37 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 787 ms
+2025-06-13 17:16:37 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:16:37 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3cc3f13e
+2025-06-13 17:16:37 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:16:37 INFO  [main] liquibase.ui - INFO: The drop-all command may result in unrecoverable destructive changes to objects at 'jdbc:postgresql://localhost:5432/pets_app_db'.
+To protect against unwanted drops, set --requireForce=true, which will require a --force=true flag on the command.
+Learn more at https://docs.liquibase.com/dropall.
+
+2025-06-13 17:16:38 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:16:38 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:16:38 INFO  [main] liquibase.command - Dropping Database Objects in schema: pets_app_db.public
+2025-06-13 17:16:38 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:16:38 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:16:38 INFO  [main] liquibase.database - Successfully deleted all supported object types in schema pets_app_db.public.
+2025-06-13 17:16:38 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:16:38 WARN  [main] liquibase.lockservice - Failed to release change log lock
+2025-06-13 17:16:38 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:16:38 INFO  [main] liquibase.ui - All objects dropped from postgres@jdbc:postgresql://localhost:5432/pets_app_db
+2025-06-13 17:16:38 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:16:39 INFO  [main] liquibase.command - Logging exception.
+2025-06-13 17:16:39 INFO  [main] liquibase.ui - ERROR: Exception Details
+2025-06-13 17:16:39 INFO  [main] liquibase.ui - ERROR: Exception Primary Class:  ChangeLogParseException
+2025-06-13 17:16:39 INFO  [main] liquibase.ui - ERROR: Exception Primary Reason:  classpath:db.changelog-master.yaml does not exist
+2025-06-13 17:16:39 INFO  [main] liquibase.ui - ERROR: Exception Primary Source:  4.32.0
+2025-06-13 17:16:39 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:16:39 WARN  [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'liquibase' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: liquibase.exception.CommandExecutionException: liquibase.exception.ChangeLogParseException: classpath:db.changelog-master.yaml does not exist
+2025-06-13 17:16:39 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:16:39 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:16:39 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-06-13 17:16:39 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-13 17:16:39 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Liquibase failed to start because no changelog could be found at 'classpath:db.changelog-master.yaml'.
+
+Action:
+
+Make sure a Liquibase changelog is present at the configured path.
+
+2025-06-13 17:18:46 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:18:46 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 41094 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:18:46 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:18:46 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:18:46 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:18:46 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:18:47 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:18:47 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:18:47 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:18:47 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:18:47 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:18:47 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 809 ms
+2025-06-13 17:18:47 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:18:47 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@250967f1
+2025-06-13 17:18:47 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:18:47 INFO  [main] liquibase.ui - INFO: The drop-all command may result in unrecoverable destructive changes to objects at 'jdbc:postgresql://localhost:5432/pets_app_db'.
+To protect against unwanted drops, set --requireForce=true, which will require a --force=true flag on the command.
+Learn more at https://docs.liquibase.com/dropall.
+
+2025-06-13 17:18:47 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:18:47 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:18:47 INFO  [main] liquibase.command - Dropping Database Objects in schema: pets_app_db.public
+2025-06-13 17:18:47 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:18:47 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:18:47 INFO  [main] liquibase.database - Successfully deleted all supported object types in schema pets_app_db.public.
+2025-06-13 17:18:47 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:18:47 WARN  [main] liquibase.lockservice - Failed to release change log lock
+2025-06-13 17:18:47 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:18:47 INFO  [main] liquibase.ui - All objects dropped from postgres@jdbc:postgresql://localhost:5432/pets_app_db
+2025-06-13 17:18:47 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:18:48 INFO  [main] liquibase.command - Logging exception.
+2025-06-13 17:18:48 INFO  [main] liquibase.ui - ERROR: Exception Details
+2025-06-13 17:18:48 INFO  [main] liquibase.ui - ERROR: Exception Primary Class:  ChangeLogParseException
+2025-06-13 17:18:48 INFO  [main] liquibase.ui - ERROR: Exception Primary Reason:  main/resources/db/changelog-master.yaml does not exist
+2025-06-13 17:18:48 INFO  [main] liquibase.ui - ERROR: Exception Primary Source:  4.32.0
+2025-06-13 17:18:48 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:18:48 WARN  [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'liquibase' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: liquibase.exception.CommandExecutionException: liquibase.exception.ChangeLogParseException: main/resources/db/changelog-master.yaml does not exist
+2025-06-13 17:18:48 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:18:48 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:18:48 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-06-13 17:18:48 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-13 17:18:48 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Liquibase failed to start because no changelog could be found at 'main/resources/db/changelog-master.yaml'.
+
+Action:
+
+Make sure a Liquibase changelog is present at the configured path.
+
+2025-06-13 17:19:13 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:19:13 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 41985 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:19:13 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:19:13 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:19:13 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:19:13 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:19:13 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:19:13 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:19:13 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:19:13 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:19:13 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:19:13 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 805 ms
+2025-06-13 17:19:14 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:19:14 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3f6c2763
+2025-06-13 17:19:14 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:19:14 INFO  [main] liquibase.ui - INFO: The drop-all command may result in unrecoverable destructive changes to objects at 'jdbc:postgresql://localhost:5432/pets_app_db'.
+To protect against unwanted drops, set --requireForce=true, which will require a --force=true flag on the command.
+Learn more at https://docs.liquibase.com/dropall.
+
+2025-06-13 17:19:14 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:19:14 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:19:14 INFO  [main] liquibase.command - Dropping Database Objects in schema: pets_app_db.public
+2025-06-13 17:19:14 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:19:14 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:19:14 INFO  [main] liquibase.database - Successfully deleted all supported object types in schema pets_app_db.public.
+2025-06-13 17:19:14 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:19:14 WARN  [main] liquibase.lockservice - Failed to release change log lock
+2025-06-13 17:19:14 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:19:14 INFO  [main] liquibase.ui - All objects dropped from postgres@jdbc:postgresql://localhost:5432/pets_app_db
+2025-06-13 17:19:14 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:19:15 INFO  [main] liquibase.command - Logging exception.
+2025-06-13 17:19:15 INFO  [main] liquibase.ui - ERROR: Exception Details
+2025-06-13 17:19:15 INFO  [main] liquibase.ui - ERROR: Exception Primary Class:  ChangeLogParseException
+2025-06-13 17:19:15 INFO  [main] liquibase.ui - ERROR: Exception Primary Reason:  main/resources/db/changelog-master.yaml does not exist
+2025-06-13 17:19:15 INFO  [main] liquibase.ui - ERROR: Exception Primary Source:  4.32.0
+2025-06-13 17:19:15 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:19:15 WARN  [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'liquibase' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: liquibase.exception.CommandExecutionException: liquibase.exception.ChangeLogParseException: main/resources/db/changelog-master.yaml does not exist
+2025-06-13 17:19:15 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:19:15 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:19:15 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-06-13 17:19:15 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-13 17:19:15 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Liquibase failed to start because no changelog could be found at 'main/resources/db/changelog-master.yaml'.
+
+Action:
+
+Make sure a Liquibase changelog is present at the configured path.
+
+2025-06-13 17:20:33 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:20:33 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 43402 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:20:33 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:20:33 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:20:34 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:20:34 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:20:34 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:20:34 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:20:34 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:20:34 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:20:34 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:20:34 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 791 ms
+2025-06-13 17:20:34 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:20:34 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@69b3886f
+2025-06-13 17:20:34 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:20:35 INFO  [main] liquibase.ui - INFO: The drop-all command may result in unrecoverable destructive changes to objects at 'jdbc:postgresql://localhost:5432/pets_app_db'.
+To protect against unwanted drops, set --requireForce=true, which will require a --force=true flag on the command.
+Learn more at https://docs.liquibase.com/dropall.
+
+2025-06-13 17:20:35 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:20:35 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:20:35 INFO  [main] liquibase.command - Dropping Database Objects in schema: pets_app_db.public
+2025-06-13 17:20:35 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:20:35 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:20:35 INFO  [main] liquibase.database - Successfully deleted all supported object types in schema pets_app_db.public.
+2025-06-13 17:20:35 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:20:35 WARN  [main] liquibase.lockservice - Failed to release change log lock
+2025-06-13 17:20:35 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:20:35 INFO  [main] liquibase.ui - All objects dropped from postgres@jdbc:postgresql://localhost:5432/pets_app_db
+2025-06-13 17:20:35 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:20:36 INFO  [main] liquibase.command - Logging exception.
+2025-06-13 17:20:36 INFO  [main] liquibase.ui - ERROR: Exception Details
+2025-06-13 17:20:36 INFO  [main] liquibase.ui - ERROR: Exception Primary Class:  ChangeLogParseException
+2025-06-13 17:20:36 INFO  [main] liquibase.ui - ERROR: Exception Primary Reason:  classpath:db.changelog-master.yaml does not exist
+2025-06-13 17:20:36 INFO  [main] liquibase.ui - ERROR: Exception Primary Source:  4.32.0
+2025-06-13 17:20:36 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:20:36 WARN  [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'liquibase' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: liquibase.exception.CommandExecutionException: liquibase.exception.ChangeLogParseException: classpath:db.changelog-master.yaml does not exist
+2025-06-13 17:20:36 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:20:36 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:20:36 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-06-13 17:20:36 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-13 17:20:36 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Liquibase failed to start because no changelog could be found at 'classpath:db.changelog-master.yaml'.
+
+Action:
+
+Make sure a Liquibase changelog is present at the configured path.
+
+2025-06-13 17:20:52 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:20:52 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 44167 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:20:52 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:20:52 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:20:52 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:20:52 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:20:53 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:20:53 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:20:53 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:20:53 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:20:53 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:20:53 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 797 ms
+2025-06-13 17:20:53 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:20:53 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@44faa4f2
+2025-06-13 17:20:53 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:20:53 INFO  [main] liquibase.ui - INFO: The drop-all command may result in unrecoverable destructive changes to objects at 'jdbc:postgresql://localhost:5432/pets_app_db'.
+To protect against unwanted drops, set --requireForce=true, which will require a --force=true flag on the command.
+Learn more at https://docs.liquibase.com/dropall.
+
+2025-06-13 17:20:53 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:20:53 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:20:53 INFO  [main] liquibase.command - Dropping Database Objects in schema: pets_app_db.public
+2025-06-13 17:20:53 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:20:53 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:20:53 INFO  [main] liquibase.database - Successfully deleted all supported object types in schema pets_app_db.public.
+2025-06-13 17:20:53 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:20:53 WARN  [main] liquibase.lockservice - Failed to release change log lock
+2025-06-13 17:20:53 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:20:53 INFO  [main] liquibase.ui - All objects dropped from postgres@jdbc:postgresql://localhost:5432/pets_app_db
+2025-06-13 17:20:53 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:20:54 INFO  [main] liquibase.command - Logging exception.
+2025-06-13 17:20:54 INFO  [main] liquibase.ui - ERROR: Exception Details
+2025-06-13 17:20:54 INFO  [main] liquibase.ui - ERROR: Exception Primary Class:  ChangeLogParseException
+2025-06-13 17:20:54 INFO  [main] liquibase.ui - ERROR: Exception Primary Reason:  classpath:db.changelog-master.yaml does not exist
+2025-06-13 17:20:54 INFO  [main] liquibase.ui - ERROR: Exception Primary Source:  4.32.0
+2025-06-13 17:20:54 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:20:54 WARN  [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'liquibase' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: liquibase.exception.CommandExecutionException: liquibase.exception.ChangeLogParseException: classpath:db.changelog-master.yaml does not exist
+2025-06-13 17:20:54 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:20:54 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:20:54 INFO  [main] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-06-13 17:20:54 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-13 17:20:54 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Liquibase failed to start because no changelog could be found at 'classpath:db.changelog-master.yaml'.
+
+Action:
+
+Make sure a Liquibase changelog is present at the configured path.
+
+2025-06-13 17:22:42 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:22:42 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 46176 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:22:42 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:22:42 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:22:42 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:22:42 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:22:43 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:22:43 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:22:43 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:22:43 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:22:43 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:22:43 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 818 ms
+2025-06-13 17:22:43 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:22:43 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@69b3886f
+2025-06-13 17:22:43 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:22:43 INFO  [main] liquibase.ui - INFO: The drop-all command may result in unrecoverable destructive changes to objects at 'jdbc:postgresql://localhost:5432/pets_app_db'.
+To protect against unwanted drops, set --requireForce=true, which will require a --force=true flag on the command.
+Learn more at https://docs.liquibase.com/dropall.
+
+2025-06-13 17:22:43 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:22:43 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:22:43 INFO  [main] liquibase.command - Dropping Database Objects in schema: pets_app_db.public
+2025-06-13 17:22:43 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:22:43 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:22:43 INFO  [main] liquibase.database - Successfully deleted all supported object types in schema pets_app_db.public.
+2025-06-13 17:22:43 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:22:43 WARN  [main] liquibase.lockservice - Failed to release change log lock
+2025-06-13 17:22:43 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:22:43 INFO  [main] liquibase.ui - All objects dropped from postgres@jdbc:postgresql://localhost:5432/pets_app_db
+2025-06-13 17:22:43 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:22:44 INFO  [main] liquibase.changelog - Creating database history table with name: public.databasechangelog
+2025-06-13 17:22:44 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-06-13 17:22:44 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:22:45 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:22:45 INFO  [main] liquibase.command - Using deploymentId: 9806563128
+2025-06-13 17:22:45 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-06-13 17:22:45 INFO  [main] liquibase.ui - Running Changeset: db/changelog/001-create-users-table.yaml::001-create-users-table::fanzi03
+2025-06-13 17:22:45 INFO  [main] liquibase.changelog - Table users created
+2025-06-13 17:22:45 INFO  [main] liquibase.changelog - ChangeSet db/changelog/001-create-users-table.yaml::001-create-users-table::fanzi03 ran successfully in 28ms
+2025-06-13 17:22:45 INFO  [main] liquibase.ui - Running Changeset: db/changelog/002-create-pets-table.yaml::002-create-pets-table::developer
+2025-06-13 17:22:45 INFO  [main] liquibase.changelog - Table pets created
+2025-06-13 17:22:45 INFO  [main] liquibase.changelog - Foreign key constraint added to pets (user_id)
+2025-06-13 17:22:45 INFO  [main] liquibase.changelog - ChangeSet db/changelog/002-create-pets-table.yaml::002-create-pets-table::developer ran successfully in 31ms
+2025-06-13 17:22:45 INFO  [main] liquibase.util - UPDATE SUMMARY
+2025-06-13 17:22:45 INFO  [main] liquibase.util - Run:                          2
+2025-06-13 17:22:45 INFO  [main] liquibase.util - Previously run:               0
+2025-06-13 17:22:45 INFO  [main] liquibase.util - Filtered out:                 0
+2025-06-13 17:22:45 INFO  [main] liquibase.util - -------------------------------
+2025-06-13 17:22:45 INFO  [main] liquibase.util - Total change sets:            2
+2025-06-13 17:22:45 INFO  [main] liquibase.util - Update summary generated
+2025-06-13 17:22:45 INFO  [main] liquibase.command - Update command completed successfully.
+2025-06-13 17:22:45 INFO  [main] liquibase.ui - Liquibase: Update has been successful. Rows affected: 2
+2025-06-13 17:22:45 INFO  [main] liquibase.lockservice - Successfully released change log lock
+2025-06-13 17:22:45 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:22:45 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 17:22:45 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-06-13 17:22:45 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 17:22:45 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 17:22:45 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-13 17:22:45 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 17:22:45 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 17:22:45 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:22:45 INFO  [main] o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 17:22:46 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:22:46 WARN  [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-06-13 17:22:46 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:22:46 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:22:46 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:22:46 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-13 17:22:46 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-06-13 17:30:34 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:30:34 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 53799 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:30:34 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:30:34 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:30:34 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:30:34 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:30:35 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:30:35 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:30:35 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:30:35 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:30:35 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:30:35 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 852 ms
+2025-06-13 17:30:35 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:30:35 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@69b3886f
+2025-06-13 17:30:35 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:30:35 INFO  [main] liquibase.ui - INFO: The drop-all command may result in unrecoverable destructive changes to objects at 'jdbc:postgresql://localhost:5432/pets_app_db'.
+To protect against unwanted drops, set --requireForce=true, which will require a --force=true flag on the command.
+Learn more at https://docs.liquibase.com/dropall.
+
+2025-06-13 17:30:35 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:30:35 INFO  [main] liquibase.command - Dropping Database Objects in schema: pets_app_db.public
+2025-06-13 17:30:35 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:30:35 WARN  [main] liquibase.executor - drop cascades to constraint fk_pet_user on table pets
+2025-06-13 17:30:36 INFO  [main] liquibase.database - Successfully deleted all supported object types in schema pets_app_db.public.
+2025-06-13 17:30:36 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:30:36 WARN  [main] liquibase.lockservice - Failed to release change log lock
+2025-06-13 17:30:36 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:30:36 INFO  [main] liquibase.ui - All objects dropped from postgres@jdbc:postgresql://localhost:5432/pets_app_db
+2025-06-13 17:30:36 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:30:37 INFO  [main] liquibase.changelog - Creating database history table with name: public.databasechangelog
+2025-06-13 17:30:37 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-06-13 17:30:37 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:30:37 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:30:37 INFO  [main] liquibase.command - Using deploymentId: 9807035421
+2025-06-13 17:30:37 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-06-13 17:30:37 INFO  [main] liquibase.ui - Running Changeset: db/changelog/001-create-users-table.yaml::001-create-users-table::fanzi03
+2025-06-13 17:30:37 INFO  [main] liquibase.changelog - Table users created
+2025-06-13 17:30:37 INFO  [main] liquibase.changelog - ChangeSet db/changelog/001-create-users-table.yaml::001-create-users-table::fanzi03 ran successfully in 85ms
+2025-06-13 17:30:37 INFO  [main] liquibase.ui - Running Changeset: db/changelog/002-create-pets-table.yaml::002-create-pets-table::developer
+2025-06-13 17:30:37 INFO  [main] liquibase.changelog - Table pets created
+2025-06-13 17:30:37 INFO  [main] liquibase.changelog - Foreign key constraint added to pets (user_id)
+2025-06-13 17:30:37 INFO  [main] liquibase.changelog - ChangeSet db/changelog/002-create-pets-table.yaml::002-create-pets-table::developer ran successfully in 48ms
+2025-06-13 17:30:37 INFO  [main] liquibase.util - UPDATE SUMMARY
+2025-06-13 17:30:37 INFO  [main] liquibase.util - Run:                          2
+2025-06-13 17:30:37 INFO  [main] liquibase.util - Previously run:               0
+2025-06-13 17:30:37 INFO  [main] liquibase.util - Filtered out:                 0
+2025-06-13 17:30:37 INFO  [main] liquibase.util - -------------------------------
+2025-06-13 17:30:37 INFO  [main] liquibase.util - Total change sets:            2
+2025-06-13 17:30:37 INFO  [main] liquibase.util - Update summary generated
+2025-06-13 17:30:37 INFO  [main] liquibase.command - Update command completed successfully.
+2025-06-13 17:30:37 INFO  [main] liquibase.ui - Liquibase: Update has been successful. Rows affected: 2
+2025-06-13 17:30:37 INFO  [main] liquibase.lockservice - Successfully released change log lock
+2025-06-13 17:30:37 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:30:37 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 17:30:37 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-06-13 17:30:38 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 17:30:38 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 17:30:38 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-13 17:30:38 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 17:30:38 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 17:30:38 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:30:38 INFO  [main] o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 17:30:39 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:30:39 WARN  [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-06-13 17:30:39 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:30:39 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:30:39 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:30:39 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-13 17:30:39 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-06-13 17:31:07 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:31:07 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 54689 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:31:07 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:31:07 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:31:07 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:31:07 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:31:08 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:31:08 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:31:08 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:31:08 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:31:08 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:31:08 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 804 ms
+2025-06-13 17:31:08 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:31:08 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@69b3886f
+2025-06-13 17:31:08 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:31:08 INFO  [main] liquibase.ui - INFO: The drop-all command may result in unrecoverable destructive changes to objects at 'jdbc:postgresql://localhost:5432/pets_app_db'.
+To protect against unwanted drops, set --requireForce=true, which will require a --force=true flag on the command.
+Learn more at https://docs.liquibase.com/dropall.
+
+2025-06-13 17:31:08 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:31:08 INFO  [main] liquibase.command - Dropping Database Objects in schema: pets_app_db.public
+2025-06-13 17:31:08 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:31:08 WARN  [main] liquibase.executor - drop cascades to constraint fk_pet_user on table pets
+2025-06-13 17:31:08 INFO  [main] liquibase.database - Successfully deleted all supported object types in schema pets_app_db.public.
+2025-06-13 17:31:08 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:31:08 WARN  [main] liquibase.lockservice - Failed to release change log lock
+2025-06-13 17:31:08 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:31:08 INFO  [main] liquibase.ui - All objects dropped from postgres@jdbc:postgresql://localhost:5432/pets_app_db
+2025-06-13 17:31:08 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:31:09 INFO  [main] liquibase.changelog - Creating database history table with name: public.databasechangelog
+2025-06-13 17:31:09 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-06-13 17:31:09 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:31:09 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:31:09 INFO  [main] liquibase.command - Using deploymentId: 9807068204
+2025-06-13 17:31:09 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-06-13 17:31:09 INFO  [main] liquibase.ui - Running Changeset: db/changelog/001-create-users-table.yaml::001-create-users-table::fanzi03
+2025-06-13 17:31:09 INFO  [main] liquibase.changelog - Table users created
+2025-06-13 17:31:09 INFO  [main] liquibase.changelog - ChangeSet db/changelog/001-create-users-table.yaml::001-create-users-table::fanzi03 ran successfully in 26ms
+2025-06-13 17:31:09 INFO  [main] liquibase.ui - Running Changeset: db/changelog/002-create-pets-table.yaml::002-create-pets-table::developer
+2025-06-13 17:31:09 INFO  [main] liquibase.changelog - Table pets created
+2025-06-13 17:31:09 INFO  [main] liquibase.changelog - Foreign key constraint added to pets (user_id)
+2025-06-13 17:31:09 INFO  [main] liquibase.changelog - ChangeSet db/changelog/002-create-pets-table.yaml::002-create-pets-table::developer ran successfully in 31ms
+2025-06-13 17:31:09 INFO  [main] liquibase.util - UPDATE SUMMARY
+2025-06-13 17:31:09 INFO  [main] liquibase.util - Run:                          2
+2025-06-13 17:31:09 INFO  [main] liquibase.util - Previously run:               0
+2025-06-13 17:31:09 INFO  [main] liquibase.util - Filtered out:                 0
+2025-06-13 17:31:09 INFO  [main] liquibase.util - -------------------------------
+2025-06-13 17:31:09 INFO  [main] liquibase.util - Total change sets:            2
+2025-06-13 17:31:09 INFO  [main] liquibase.util - Update summary generated
+2025-06-13 17:31:09 INFO  [main] liquibase.command - Update command completed successfully.
+2025-06-13 17:31:09 INFO  [main] liquibase.ui - Liquibase: Update has been successful. Rows affected: 2
+2025-06-13 17:31:10 INFO  [main] liquibase.lockservice - Successfully released change log lock
+2025-06-13 17:31:10 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:31:10 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 17:31:10 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-06-13 17:31:10 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 17:31:10 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 17:31:10 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-13 17:31:10 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 17:31:10 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 17:31:10 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:31:10 INFO  [main] o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 17:31:11 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:31:11 WARN  [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-06-13 17:31:11 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:31:11 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:31:11 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:31:11 INFO  [main] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-13 17:31:11 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-06-13 17:40:06 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:40:06 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 62766 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:40:06 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:40:06 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:40:06 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:40:06 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:40:06 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:40:06 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:40:06 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:40:06 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:40:06 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:40:06 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 799 ms
+2025-06-13 17:40:07 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:40:07 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5c82031b
+2025-06-13 17:40:07 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:40:07 INFO  [main] liquibase.ui - INFO: The drop-all command may result in unrecoverable destructive changes to objects at 'jdbc:postgresql://localhost:5432/pets_app_db'.
+To protect against unwanted drops, set --requireForce=true, which will require a --force=true flag on the command.
+Learn more at https://docs.liquibase.com/dropall.
+
+2025-06-13 17:40:07 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:40:07 INFO  [main] liquibase.command - Dropping Database Objects in schema: pets_app_db.public
+2025-06-13 17:40:07 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:40:07 WARN  [main] liquibase.executor - drop cascades to constraint fk_pet_user on table pets
+2025-06-13 17:40:07 INFO  [main] liquibase.database - Successfully deleted all supported object types in schema pets_app_db.public.
+2025-06-13 17:40:07 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:40:07 WARN  [main] liquibase.lockservice - Failed to release change log lock
+2025-06-13 17:40:07 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:40:07 INFO  [main] liquibase.ui - All objects dropped from postgres@jdbc:postgresql://localhost:5432/pets_app_db
+2025-06-13 17:40:07 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:40:08 INFO  [main] liquibase.changelog - Creating database history table with name: public.databasechangelog
+2025-06-13 17:40:08 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-06-13 17:40:08 INFO  [main] liquibase.snapshot - Creating snapshot
+2025-06-13 17:40:09 INFO  [main] liquibase.lockservice - Successfully acquired change log lock
+2025-06-13 17:40:09 INFO  [main] liquibase.command - Using deploymentId: 9807607054
+2025-06-13 17:40:09 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-06-13 17:40:09 INFO  [main] liquibase.ui - Running Changeset: db/changelog/001-create-users-table.yaml::001-create-users-table::fanzi03
+2025-06-13 17:40:09 INFO  [main] liquibase.changelog - Table users created
+2025-06-13 17:40:09 INFO  [main] liquibase.changelog - ChangeSet db/changelog/001-create-users-table.yaml::001-create-users-table::fanzi03 ran successfully in 28ms
+2025-06-13 17:40:09 INFO  [main] liquibase.ui - Running Changeset: db/changelog/002-create-pets-table.yaml::002-create-pets-table::developer
+2025-06-13 17:40:09 INFO  [main] liquibase.changelog - Table pets created
+2025-06-13 17:40:09 INFO  [main] liquibase.changelog - Foreign key constraint added to pets (user_id)
+2025-06-13 17:40:09 INFO  [main] liquibase.changelog - ChangeSet db/changelog/002-create-pets-table.yaml::002-create-pets-table::developer ran successfully in 38ms
+2025-06-13 17:40:09 INFO  [main] liquibase.util - UPDATE SUMMARY
+2025-06-13 17:40:09 INFO  [main] liquibase.util - Run:                          2
+2025-06-13 17:40:09 INFO  [main] liquibase.util - Previously run:               0
+2025-06-13 17:40:09 INFO  [main] liquibase.util - Filtered out:                 0
+2025-06-13 17:40:09 INFO  [main] liquibase.util - -------------------------------
+2025-06-13 17:40:09 INFO  [main] liquibase.util - Total change sets:            2
+2025-06-13 17:40:09 INFO  [main] liquibase.util - Update summary generated
+2025-06-13 17:40:09 INFO  [main] liquibase.command - Update command completed successfully.
+2025-06-13 17:40:09 INFO  [main] liquibase.ui - Liquibase: Update has been successful. Rows affected: 2
+2025-06-13 17:40:09 INFO  [main] liquibase.lockservice - Successfully released change log lock
+2025-06-13 17:40:09 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:40:09 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 17:40:09 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-06-13 17:40:09 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 17:40:09 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 17:40:09 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-13 17:40:09 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 17:40:09 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 17:40:09 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:40:10 INFO  [main] o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 17:40:10 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:40:10 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-06-13 17:40:10 WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-13 17:40:10 INFO  [main] org.example.Main - Started Main in 4.591 seconds (process running for 4.827)
+2025-06-13 17:41:43 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-06-13 17:41:43 INFO  [main] org.example.Main - Starting Main using Java 21.0.7 with PID 63734 (/home/fanzi03/tool/Projects/Pets/build/classes/java/main started by fanzi03 in /home/fanzi03/tool/Projects/Pets)
+2025-06-13 17:41:43 DEBUG [main] org.example.Main - Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-06-13 17:41:43 INFO  [main] org.example.Main - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:41:44 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:41:44 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 2 JPA repository interfaces.
+2025-06-13 17:41:44 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 17:41:44 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:41:44 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:41:44 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-06-13 17:41:44 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:41:44 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 785 ms
+2025-06-13 17:41:44 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:41:44 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3f6c2763
+2025-06-13 17:41:44 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:41:45 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-06-13 17:41:45 INFO  [main] liquibase.ui - Database is up to date, no changesets to execute
+2025-06-13 17:41:45 INFO  [main] liquibase.changelog - Reading from public.databasechangelog
+2025-06-13 17:41:45 INFO  [main] liquibase.util - UPDATE SUMMARY
+2025-06-13 17:41:45 INFO  [main] liquibase.util - Run:                          0
+2025-06-13 17:41:45 INFO  [main] liquibase.util - Previously run:               2
+2025-06-13 17:41:45 INFO  [main] liquibase.util - Filtered out:                 0
+2025-06-13 17:41:45 INFO  [main] liquibase.util - -------------------------------
+2025-06-13 17:41:45 INFO  [main] liquibase.util - Total change sets:            2
+2025-06-13 17:41:45 INFO  [main] liquibase.util - Update summary generated
+2025-06-13 17:41:45 INFO  [main] liquibase.command - Command execution complete
+2025-06-13 17:41:46 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 17:41:46 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-06-13 17:41:46 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 17:41:46 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 17:41:46 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-13 17:41:46 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 17:41:46 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 17:41:46 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:41:46 INFO  [main] o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 17:41:47 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-13 17:41:47 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-06-13 17:41:47 WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-13 17:41:47 INFO  [main] org.example.Main - Started Main in 3.606 seconds (process running for 3.872)
+2025-06-13 17:42:47 INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-13 17:42:47 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-06-13 17:42:47 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:42:47 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:42:47 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

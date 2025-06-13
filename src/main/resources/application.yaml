@@ -1,6 +1,6 @@
 spring:
   liquibase:
-    change-log: classpath:db.changelog-master.yaml
+    change-log: classpath:db/changelog-master.yaml
     drop-first: false
     enabled: true
     default schema: public 
