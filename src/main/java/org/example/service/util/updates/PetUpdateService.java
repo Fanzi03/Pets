@@ -25,7 +25,7 @@ public class PetUpdateService {
     UserRepository userRepository;
 
     @Transactional
-    public Optional<PetDataTransferObject> update(
+    public PetDataTransferObject update(
             Long id,
             PetDataTransferObject updatedPetDTO
     ) {
@@ -63,7 +63,8 @@ public class PetUpdateService {
 
                     return petMapper.toDTO(petRepository.save(existPet));
                 }
-        );
+        ).orElseThrow(() -> new InvalidPetUpdateException("No pets with id " + id)
+	    );
     }
 
 }

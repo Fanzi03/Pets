@@ -1,7 +1,10 @@
 package org.example.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import org.example.entity.enums.Gender;
 
 import java.time.LocalDate;
@@ -9,6 +12,8 @@ import java.time.Year;
 
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "pets")
 public class Pet {

@@ -2,12 +2,19 @@ package org.example.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
+
 import org.example.entity.enums.Gender;
 import org.example.validation.annotation.AllowedTypes;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PetDataTransferObject {
     Long id;

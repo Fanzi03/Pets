@@ -44,9 +44,8 @@ public class PetController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PetDataTransferObject> updatePet(@PathVariable Long id, @RequestBody @Valid PetDataTransferObject petUpdate){
-        return petService.update(id, petUpdate).
-                map(ResponseEntity::ok).
-                orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        PetDataTransferObject petDtoUpadate = petService.update(id, petUpdate);
+	return ResponseEntity.ok().body(petDtoUpadate);
     }
 
 }

@@ -9,10 +9,6 @@ import org.example.repository.PetRepository;
 import org.example.repository.UserRepository;
 import org.example.service.util.add.PetCreateService;
 import org.example.service.util.updates.PetUpdateService;
-import org.hibernate.sql.Update;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +44,7 @@ public class PetService {
         petRepository.delete(pet);
     }
 
-    public Optional<PetDataTransferObject> update(Long id, PetDataTransferObject updatedPetDataTransferObject){
+    public PetDataTransferObject update(Long id, PetDataTransferObject updatedPetDataTransferObject){
         return petUpdateService.update(id, updatedPetDataTransferObject);
     }
 

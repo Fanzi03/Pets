@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.PetDataTransferObject;
+import org.example.dto.util.UserDataTransferObjectWithPetList;
 import org.example.dto.UserDataTransferObject;
 import org.example.dto.mapping.PetMapper;
 import org.example.dto.mapping.UserMapper;
@@ -42,6 +43,8 @@ public class UserService {
                 .stream().map(petMapper::toDTO).collect(Collectors.toList());
     }
 
+   // public List<UserDataTransferObjectWithPetList> getUserWithListPets(Long Id);
+
     public Optional<UserDataTransferObject> findUserById(Long id) {
         return userRepository.findById(id).map(userMapper::toDTO);
     }
@@ -55,7 +58,7 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public Optional<UserDataTransferObject> update(UserDataTransferObject userDataTransferObject, Long id) {
+    public UserDataTransferObject update(UserDataTransferObject userDataTransferObject, Long id) {
         return userUpdateService.update(userDataTransferObject, id);
     }
 }

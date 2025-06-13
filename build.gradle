@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '3.4.3'
     id 'io.spring.dependency-management' version '1.1.4'
     id 'java'
+    id 'application'
 }
 compileJava {
     options.annotationProcessorPath = configurations.annotationProcessor
@@ -10,7 +11,24 @@ tasks.withType(JavaCompile).configureEach {
     options.annotationProcessorPath = configurations.annotationProcessor
 }
 
+application {
+    mainClass = 'org.example.Main'
+}
 
+
+jar {
+    manifest {
+	attributes(
+	    'Main-Class': 'org.example.Main' 
+	)
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+ 
 group = 'org.example'
 version = '1.1-SNAPSHOT'
 
@@ -27,16 +45,22 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-logging:3.4.3'
     compileOnly("org.springframework:spring-context-indexer:6.2.6")
     annotationProcessor("org.springframework:spring-context-indexer:6.2.6")
-    // Spring
+    //
 
     implementation 'jakarta.validation:jakarta.validation-api:3.1.1'
     implementation 'org.postgresql:postgresql:42.7.5'
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.projectlombok:lombok:1.18.30'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+    // tests
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.18.0'
+    testImplementation 'org.mockito:mockito-core:5.17.0'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    //
 }
 
 test {

@@ -19,7 +19,7 @@ public class UserUpdateService {
     UserRepository userRepository;
     UserMapper userMapper;
     @Transactional
-    public Optional<UserDataTransferObject> update (UserDataTransferObject userDataTransferObject, Long id) {
+    public UserDataTransferObject update (UserDataTransferObject userDataTransferObject, Long id) {
         return userRepository.findById(id).map(
                 existUser ->
                 {
@@ -43,6 +43,7 @@ public class UserUpdateService {
                     }
 
                     return userMapper.toDTO(userRepository.save(existUser));
-                });
+                }).orElseThrow(() -> 
+		    new InvalidUserUpdateException("User with id " + id + " not exist"));
     }
 }
