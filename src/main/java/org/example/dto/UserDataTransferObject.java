@@ -30,4 +30,13 @@ public class UserDataTransferObject {
     @Min(value = 0, message = "Age must be positive")
     @Max(value = 150, message = "Too old for a person")
     Integer age;
+
+    public UserDataTransferObject(
+            String userName, String fullName, String email, String password, Integer age) {
+        this.userName = userName;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.age = age;
+    }
 }

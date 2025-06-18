@@ -5,9 +5,9 @@ spring:
     enabled: true
     default schema: public 
   datasource:
-    url: jdbc:postgresql://localhost:5432/pets_app_db
-    username: postgres
-    password: postgres
+    url: SPRING_DATASOURCE_URL=${DATASOURCE_URL}
+    username: SPRING_DATASOURCE_USERNAME=${DB_USER}
+    password: SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -22,6 +22,9 @@ spring:
   main:
     lazy-initialization: true
 
+server:
+  port: 0007
+
 logging:
   level:
     root: INFO
@@ -30,3 +33,5 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
+
+
