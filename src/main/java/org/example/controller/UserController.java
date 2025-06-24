@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.PetDataTransferObject;
 import org.example.dto.UserDataTransferObject;
 import org.example.service.UserService;
-import org.mapstruct.control.MappingControl.Use;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +43,7 @@ public class UserController {
 	return ResponseEntity.ok().body(userdtoUpdate);           
     }
 
-    @PostMapping
+    @PostMapping("/registration")
     public ResponseEntity<UserDataTransferObject> createUser(@RequestBody @Valid UserDataTransferObject user) {
         UserDataTransferObject userCreated = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);

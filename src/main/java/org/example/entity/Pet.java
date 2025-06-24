@@ -5,10 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import org.example.entity.enums.Gender;
-
 import java.time.LocalDate;
 import java.time.Year;
+import org.example.enums.Gender;
 
 
 @Data
@@ -31,12 +30,13 @@ public class Pet {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     public void setAge(int age) {
         this.age = age;
         this.birthYear = Year.now().getValue() - age;
     }
+
 }

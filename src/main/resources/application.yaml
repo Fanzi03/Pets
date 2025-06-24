@@ -1,7 +1,7 @@
 spring:
   liquibase:
     change-log: classpath:db/changelog-master.yaml
-    drop-first: false
+    drop-first: true
     enabled: true
     default schema: public 
   datasource:
@@ -23,7 +23,7 @@ spring:
     lazy-initialization: true
 
 server:
-  port: 0007
+  port: 8088 
 
 logging:
   level:

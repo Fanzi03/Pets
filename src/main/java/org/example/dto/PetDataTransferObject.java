@@ -7,9 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
 
-import org.example.entity.enums.Gender;
+import org.example.enums.Gender;
 import org.example.validation.annotation.AllowedTypes;
 
 @Data
@@ -33,7 +32,7 @@ public class PetDataTransferObject {
     String ownerName;
 
     public PetDataTransferObject(
-            String name, String type, Gender gender, Integer age, String ownerName) {
+        String name, String type, Gender gender, Integer age, String ownerName) {
         this.name = name;
         this.type = type;
         this.gender = gender;

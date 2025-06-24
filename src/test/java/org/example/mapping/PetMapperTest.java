@@ -1,11 +1,11 @@
-package org.example.dto.mapping;
+package org.example.mapping;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import java.time.LocalDate;
 import org.example.dto.PetDataTransferObject;
 import org.example.entity.Pet;
-import org.example.entity.enums.Gender;
+import org.example.enums.Gender;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;

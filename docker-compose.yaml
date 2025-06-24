@@ -1,5 +1,3 @@
-version: "3.9"
-
 services: 
   app: 
     build: 
@@ -8,7 +6,7 @@ services:
     image: pets:latest
     container_name: pets
     ports: 
-      - "0007:0007"
+      - "8088:8088"
     environment:
       - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
       - SPRING_DATASOURCE_USERNAME=${DB_USER}
@@ -18,7 +16,7 @@ services:
       db:
         condition: service_healthy 
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:0007/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8088/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 3

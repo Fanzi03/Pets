@@ -8,6 +8,6 @@ RUN ./gradlew build -x test
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
-EXPOSE 0007
+EXPOSE 8088
 ENTRYPOINT ["java", "-jar", "app.jar"]
 

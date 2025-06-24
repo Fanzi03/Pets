@@ -2,6 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 002-create-pets-table
       author: developer
+      validCheckSum: 9:abe646297f6866bdd4dc91a16c281e80
       changes:
         - createTable:
             tableName: pets
@@ -47,7 +48,7 @@ databaseChangeLog:
                   name: user_id
                   type: BIGINT
                   constraints:
-                    nullable: false
+                    nullable: true
         - addForeignKeyConstraint:
             baseTableName: pets
             baseColumnNames: user_id

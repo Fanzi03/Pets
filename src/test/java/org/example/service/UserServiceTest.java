@@ -13,9 +13,9 @@ import java.util.Optional;
 
 import org.example.service.UserService;
 import org.example.dto.UserDataTransferObject;
-import org.example.dto.mapping.UserMapper;
 import org.example.dto.util.UserDataTransferObjectWithPetList;
 import org.example.entity.User;
+import org.example.mapping.UserMapper;
 import org.example.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -30,7 +30,7 @@ public class PetController {
         return ResponseEntity.ok(pet);
     }
 
-    @PostMapping
+    @PostMapping("/addPet")
     public ResponseEntity<PetDataTransferObject> addPet(@RequestBody @Valid PetDataTransferObject pet){
         PetDataTransferObject createdPet = petService.add(pet);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPet);

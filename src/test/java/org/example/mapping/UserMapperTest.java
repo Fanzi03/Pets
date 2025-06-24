@@ -1,4 +1,4 @@
-package org.example.dto.mapping;
+package org.example.mapping;
 
 import org.example.dto.UserDataTransferObject;
 import org.example.entity.User;

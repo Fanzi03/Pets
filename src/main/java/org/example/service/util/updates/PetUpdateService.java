@@ -5,16 +5,15 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.dto.PetDataTransferObject;
-import org.example.dto.mapping.PetMapper;
 import org.example.entity.User;
 import org.example.exception.InvalidPetUpdateException;
+import org.example.mapping.PetMapper;
 import org.example.repository.PetRepository;
 import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

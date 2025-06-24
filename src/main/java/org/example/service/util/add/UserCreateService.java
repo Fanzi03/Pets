@@ -4,9 +4,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.dto.UserDataTransferObject;
-import org.example.dto.mapping.UserMapper;
 import org.example.entity.User;
+import org.example.mapping.UserMapper;
 import org.example.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,8 @@ import static org.example.service.UserService.ALREADY_EXISTS_MESSAGE;
 public class UserCreateService {
     UserMapper userMapper;
     UserRepository userRepository;
-
+    PasswordEncoder passwordEncoder; 
+    
     @Transactional
     public UserDataTransferObject create (UserDataTransferObject userDataTransferObject) {
         if(userRepository.existsByEmail(userDataTransferObject.getEmail())) {
@@ -33,6 +35,7 @@ public class UserCreateService {
 
 
         User userEntity = userMapper.toEntity(userDataTransferObject);
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         return userMapper.toDTO(userRepository.save(userEntity));
     }
 }

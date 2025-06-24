@@ -2,17 +2,14 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dto.PetDataTransferObject;
-import org.example.dto.mapping.PetMapper;
 import org.example.entity.Pet;
-import org.example.entity.User;
+import org.example.mapping.PetMapper;
 import org.example.repository.PetRepository;
-import org.example.repository.UserRepository;
 import org.example.service.util.add.PetCreateService;
 import org.example.service.util.updates.PetUpdateService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;

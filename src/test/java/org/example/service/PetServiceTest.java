@@ -1,7 +1,6 @@
 package org.example.service;
 
 import java.util.Optional;
-import java.time.Year;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,15 +8,14 @@ import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import org.example.dto.PetDataTransferObject;
-import org.example.dto.mapping.PetMapper;
 import org.example.entity.Pet;
-import org.example.entity.enums.Gender;
+import org.example.enums.Gender;
+import org.example.mapping.PetMapper;
 import org.example.repository.PetRepository;
 import org.example.service.PetService;
 
