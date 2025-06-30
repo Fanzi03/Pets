@@ -4,13 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.PetDataTransferObject;
 import org.example.service.PetService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.NoSuchElementException;
-
 
 @RestController
 @RequestMapping("/pets")
@@ -20,13 +18,16 @@ public class PetController {
     private final PetService petService;
 
     @GetMapping
-    public List<PetDataTransferObject> getAllPets(){
-        return petService.getPets();
+    public ResponseEntity<Page<PetDataTransferObject>> getAllPets(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ){
+        return ResponseEntity.ok(petService.getPets(PageRequest.of(page, size))); 
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PetDataTransferObject> getPetById(@PathVariable Long id){
-        PetDataTransferObject pet = petService.findById(id).orElseThrow(()  -> new NoSuchElementException("Pet with id: " + id + " not found"));
+        PetDataTransferObject pet = petService.findById(id);
         return ResponseEntity.ok(pet);
     }
 

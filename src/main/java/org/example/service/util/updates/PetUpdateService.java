@@ -6,14 +6,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.dto.PetDataTransferObject;
 import org.example.entity.User;
-import org.example.exception.InvalidPetUpdateException;
+import org.example.exception.custom.NotFoundPetException;
+import org.example.exception.custom.NotFoundUserException;
+import org.example.exception.custom.update.InvalidPetUpdateException;
 import org.example.mapping.PetMapper;
 import org.example.repository.PetRepository;
 import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -55,15 +55,14 @@ public class PetUpdateService {
                     else{
                         if(existPet.getUser() == null || !existPet.getUser().getUserName().equals(ownerName)) {
                         User user = userRepository.findByUserName(ownerName).orElseThrow(
-                                () -> new NoSuchElementException("User with userName:" + ownerName + " not found!"));
+                                () -> new NotFoundUserException("User with userName:" + ownerName + " not found!"));
                           existPet.setUser(user);
                         }
                     }
 
                     return petMapper.toDTO(petRepository.save(existPet));
                 }
-        ).orElseThrow(() -> new InvalidPetUpdateException("No pets with id " + id)
-	    );
+        ).orElseThrow(() -> new NotFoundPetException("Pet not found")); 
     }
 
 }

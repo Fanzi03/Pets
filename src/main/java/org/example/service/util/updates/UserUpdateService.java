@@ -4,13 +4,12 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.dto.UserDataTransferObject;
-import org.example.exception.InvalidUserUpdateException;
+import org.example.exception.custom.update.InvalidUserUpdateException;
 import org.example.mapping.UserMapper;
 import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

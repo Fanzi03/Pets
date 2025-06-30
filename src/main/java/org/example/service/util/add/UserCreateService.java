@@ -5,13 +5,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.dto.UserDataTransferObject;
 import org.example.entity.User;
+import org.example.exception.custom.add.InvalidAddUserException;
 import org.example.mapping.UserMapper;
 import org.example.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.example.service.UserService.ALREADY_EXISTS_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
@@ -24,13 +24,13 @@ public class UserCreateService {
     @Transactional
     public UserDataTransferObject create (UserDataTransferObject userDataTransferObject) {
         if(userRepository.existsByEmail(userDataTransferObject.getEmail())) {
-            throw new IllegalArgumentException("Email: " +
-                    userDataTransferObject.getEmail() + ALREADY_EXISTS_MESSAGE);
+            throw new InvalidAddUserException("Email: " +
+                    userDataTransferObject.getEmail() + " already exist");
         }
 
         if (userRepository.existsByUserName(userDataTransferObject.getUserName())) {
-            throw new IllegalArgumentException("Username: " + userDataTransferObject.getUserName() +
-                    ALREADY_EXISTS_MESSAGE);
+            throw new InvalidAddUserException("Username: " + userDataTransferObject.getUserName() +
+                    " already exist");
         }
 
 
