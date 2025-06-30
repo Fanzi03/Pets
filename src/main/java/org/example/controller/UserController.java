@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -49,20 +51,34 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDataTransferObject> userUpdate(@PathVariable Long id, @RequestBody @Valid UserDataTransferObject userUpdate) {
+    public ResponseEntity<Map<String,Object>> userUpdate(@PathVariable Long id, @RequestBody @Valid UserDataTransferObject userUpdate) {
         UserDataTransferObject userdtoUpdate = userService.update(userUpdate, id);
-	return ResponseEntity.ok().body(userdtoUpdate);           
+        Map<String,Object> response = new HashMap<>();
+        response.put("message", "User with id: " + id + " updated");
+        response.put("updatedUser", userdtoUpdate);
+        response.put("status", "success");
+	    return ResponseEntity.ok(response);           
     }
 
+
     @PostMapping("/registration")
-    public ResponseEntity<UserDataTransferObject> createUser(@RequestBody @Valid UserDataTransferObject user) {
+    public ResponseEntity<Map<String,Object>> createUser(@RequestBody @Valid UserDataTransferObject user) {
         UserDataTransferObject userCreated = userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
+        Map<String,Object> response = new HashMap<>();
+        response.put("message", "User with id: " + userCreated.getId() + " added");
+        response.put("addedUser", userCreated);
+        response.put("status", "success");
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Map<String,Object>> deleteUser(@PathVariable Long id) {
+       UserDataTransferObject deletedUserDataTransferObject = userService.findUserById(id);
        userService.deleteById(id);
-       return ResponseEntity.noContent().build();
+       Map<String,Object> response = new HashMap<>();
+       response.put("message", "User with id: " + id + " deleted");
+       response.put("deletedUser", deletedUserDataTransferObject);
+       response.put("status", "success");
+       return ResponseEntity.ok(response);
     }
 }

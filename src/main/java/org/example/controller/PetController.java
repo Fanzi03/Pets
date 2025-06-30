@@ -2,11 +2,14 @@ package org.example.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.example.dto.PetDataTransferObject;
 import org.example.service.PetService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,22 +34,34 @@ public class PetController {
         return ResponseEntity.ok(pet);
     }
 
-    @PostMapping("/addPet")
-    public ResponseEntity<PetDataTransferObject> addPet(@RequestBody @Valid PetDataTransferObject pet){
+    @PostMapping("/add")
+    public ResponseEntity<Map<String,Object>> addPet(@RequestBody @Valid PetDataTransferObject pet){
         PetDataTransferObject createdPet = petService.add(pet);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPet);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Pet with id: " + createdPet.getId() + " added");
+        response.put("addedPet", createdPet);
+        response.put("status", "success");
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePet(@PathVariable Long id){
+    public ResponseEntity<Map<String, Object>> deletePet(@PathVariable Long id){
+        PetDataTransferObject delPetDataTransferObject = petService.findById(id);
         petService.delete(id);
-        return ResponseEntity.noContent().build();
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Pet with id: " + id + " deleted");
+        response.put("deletedPet", delPetDataTransferObject);
+        response.put("status", "success");
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PetDataTransferObject> updatePet(@PathVariable Long id, @RequestBody @Valid PetDataTransferObject petUpdate){
+    public ResponseEntity<Map<String, Object>> updatePet(@PathVariable Long id, @RequestBody @Valid PetDataTransferObject petUpdate){
         PetDataTransferObject petDtoUpadate = petService.update(id, petUpdate);
-	return ResponseEntity.ok().body(petDtoUpadate);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Pet with id: " + id + " updated");
+        response.put("updatedPet", petDtoUpadate);
+        response.put("status", "success");
+    	return ResponseEntity.ok(response);
     }
-
 }
