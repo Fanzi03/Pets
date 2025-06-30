@@ -10,11 +10,15 @@ services:
     environment:
       - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
       - SPRING_DATASOURCE_USERNAME=${DB_USER}
-      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
-      - JAVA_OPTS=${JAVA_OPTS:-Xmx512m} 
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD} 
+      - JAVA_OPTS=${JAVA_OPTS}
+      - VALIDATION_ANIMAL_TYPES=${VALIDATION_ANIMAL_TYPES}
+      - SPRING_REDIS_HOST=${SPRING_REDIS_HOST}
     depends_on:
       db:
         condition: service_healthy 
+      redis:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8088/actuator/health"]
       interval: 30s
@@ -38,7 +42,23 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: pets_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
 volumes:
   db_data:
-  
+  redis_data:
 

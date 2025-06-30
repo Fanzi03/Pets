@@ -1,4 +1,4 @@
-package org.example.validation.annotation;
+package org.example.annotation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -22,5 +22,7 @@ public @interface AllowedTypes {
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
-    String[] value();
+    String[] value() default{};
+
+    String configKey() default"";
 }

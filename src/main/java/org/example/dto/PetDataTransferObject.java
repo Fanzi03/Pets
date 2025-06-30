@@ -7,9 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-
+import org.example.annotation.AllowedTypes;
 import org.example.enums.Gender;
-import org.example.validation.annotation.AllowedTypes;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +20,7 @@ public class PetDataTransferObject {
     @NotBlank(message = "Name is required")
     String name;
     @NotBlank(message = "Type is required")
-    @AllowedTypes(value = { "cat", "dog", "bear", "parrot" }, message = "Type must be exist")
+    @AllowedTypes(configKey = "VALIDATION_ANIMAL_TYPES")
     String type;
     @NotNull(message = "Gender is required")
     Gender gender;

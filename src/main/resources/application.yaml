@@ -9,7 +9,6 @@ spring:
     username: SPRING_DATASOURCE_USERNAME=${DB_USER}
     password: SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: none 
@@ -25,6 +24,11 @@ spring:
 server:
   port: 8088 
 
+  redis:
+    host: ${SPRING_REDIS_HOST}
+    port: ${SPRING_REDIS_PORT}
+    timeout: 2000
+    password: ${SPRING_REDIS_PASSWORD:}
 logging:
   level:
     root: INFO
