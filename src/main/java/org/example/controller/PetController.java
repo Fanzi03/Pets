@@ -30,7 +30,7 @@ public class PetController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PetDataTransferObject> getPetById(@PathVariable Long id){
-        PetDataTransferObject pet = petService.findById(id);
+        PetDataTransferObject pet = petService.findByIdWithCach(id);
         return ResponseEntity.ok(pet);
     }
 

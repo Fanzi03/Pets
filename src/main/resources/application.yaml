@@ -1,9 +1,9 @@
 spring:
   liquibase:
     change-log: classpath:db/changelog-master.yaml
-    drop-first: true
+    drop-first: false
     enabled: true
-    default schema: public 
+    default-schema: public 
   datasource:
     url: SPRING_DATASOURCE_URL=${DATASOURCE_URL}
     username: SPRING_DATASOURCE_USERNAME=${DB_USER}
@@ -20,21 +20,23 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   main:
     lazy-initialization: true
-
+  data:
+    redis:
+      database: 0
+      password: ${SPRING_REDIS_PASSWORD:}
+      timeout: 2000ms
+      port: 6379
+      host: ${SPRING_REDIS_HOST}
 server:
   port: 8088 
 
-  redis:
-    host: ${SPRING_REDIS_HOST}
-    port: ${SPRING_REDIS_PORT}
-    timeout: 2000
-    password: ${SPRING_REDIS_PASSWORD:}
 logging:
   level:
     root: INFO
     org.example: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    redis.clients.jedis: WARN
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
 

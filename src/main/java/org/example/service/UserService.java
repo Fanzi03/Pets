@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
 
+import org.example.cache.CacheKeyGenerator;
+import org.example.cache.CacheService;
 import org.example.dto.JwtAuthenticationDto;
 import org.example.dto.PetDataTransferObject;
 import org.example.dto.RefreshTokenDto;
@@ -48,15 +50,28 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Page<UserDataTransferObject> getUsers(Pageable pageable) {
+        String cacheKey = CacheKeyGenerator.usersPageKey(pageable.getPageNumber(), pageable.getPageSize());
+        Page<UserDataTransferObject> cachedUsers = 
+            (Page<UserDataTransferObject>) cacheService.get(cacheKey, Page.class);
+        if(cachedUsers != null) return cachedUsers;
         Page<User> users = userRepository.findAll(pageable);
         if(!users.hasContent()){throw new NotFoundUserException("Users not found");};
-        return users.map(userMapper::toDTO);
+
+        Page<UserDataTransferObject> userDtos = users.map(userMapper::toDTO);
+        cacheService.put(cacheKey, userDtos, 2000);
+        return userDtos;
     }
 
     public List<PetDataTransferObject> getUserPets(Long id) {
-        return userRepository.findById(id).map(User::getPets)
+        String cacheKey = CacheKeyGenerator.userPetsKey(id);
+        List<PetDataTransferObject> cachedUserPets = 
+            (List<PetDataTransferObject>) cacheService.get(cacheKey, List.class);
+        if(cachedUserPets != null) return cachedUserPets;
+        List<PetDataTransferObject> pets = userRepository.findById(id).map(User::getPets)
                 .orElseThrow(() -> new NotFoundUserException("User not found"))
                 .stream().map(petMapper::toDTO).collect(Collectors.toList());
+        cacheService.put(cacheKey, pets, 3600);
+        return pets;
     }
 
     @Transactional
@@ -67,16 +82,12 @@ public class UserService {
     }
 
     public UserDataTransferObject findUserByIdWithCash(Long id){
-        if(id == null){
-           throw new IllegalArgumentException("User id cannot be null"); 
-        }
-
-        UserDataTransferObject cachedUser = cacheService.getUserFromCache(id);
+        String cacheKey = CacheKeyGenerator.userKey(id);
+        UserDataTransferObject cachedUser = cacheService.get(cacheKey, UserDataTransferObject.class);
         if(cachedUser != null) return cachedUser;
 
         UserDataTransferObject user = findUserById(id);
-
-        cacheService.cacheUser(id, user);
+        cacheService.put(cacheKey, user, 3600);
         return user;
     }
 
@@ -86,21 +97,40 @@ public class UserService {
             .orElseThrow(() -> new NotFoundUserException("User not found with this email " + email)));
     }
 
+   public UserDataTransferObject findUserByEmailWithCache(String email){
+        String cacheKey = CacheKeyGenerator.userEmailKey(email);
+        UserDataTransferObject cachedUser = cacheService.get(cacheKey, UserDataTransferObject.class);
+        if(cachedUser != null) return cachedUser;
+
+        UserDataTransferObject user = findUserByEmail(email);
+        cacheService.put(cacheKey, user, 3600);
+        return user;
+    }
+
     public UserDataTransferObject createUser(UserDataTransferObject userDataTransferObject) {
         UserDataTransferObject createdUser = userCreateService.create(userDataTransferObject);
-        cacheService.evictedAllUsers();
+        cacheService.evictedByPattern(CacheKeyGenerator.allUsersPagePattern());
         return createdUser;
     }
 
     public void deleteById(Long id) {
         if(!userRepository.existsById(id)) throw new NotFoundUserException("User not found with id " + id);
         userRepository.deleteById(id);
-        cacheService.evictUser(id);
+        String cacheKey = CacheKeyGenerator.userKey(id);
+        cacheService.evict(cacheKey);
+        cacheService.evict(CacheKeyGenerator.userPetsKey(id));
+        cacheService.evictedByPattern(CacheKeyGenerator.allUserEmailPattern());
+        cacheService.evictedByPattern(CacheKeyGenerator.allUsersPattern());
+        cacheService.evictedByPattern(CacheKeyGenerator.allUsersPagePattern());
     }
 
     public UserDataTransferObject update(UserDataTransferObject userDataTransferObject, Long id) {
         UserDataTransferObject updatedUser = userUpdateService.update(userDataTransferObject, id);
-        cacheService.cacheUser(id, userDataTransferObject);
+        String cacheKey = CacheKeyGenerator.userKey(id);
+        cacheService.put(cacheKey, updatedUser, 3600);
+        if((!userDataTransferObject.getEmail().equals(updatedUser.getEmail())) 
+            && (updatedUser.getEmail() != null && (!updatedUser.getEmail().isEmpty())))
+                cacheService.evictedByPattern(CacheKeyGenerator.allUserEmailPattern());
         return updatedUser;
     }
     

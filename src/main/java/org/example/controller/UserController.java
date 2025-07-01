@@ -9,7 +9,6 @@ import org.example.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +46,7 @@ public class UserController {
 
     @GetMapping("/email/{email}")
     public ResponseEntity<UserDataTransferObject> getUserByEmail(@PathVariable @Email(message = "Invalid email format") String email){
-        return ResponseEntity.ok(userService.findUserByEmail(email));
+        return ResponseEntity.ok(userService.findUserByEmailWithCache(email));
     }
 
     @PutMapping("/{id}")
