@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.example.dto.PetDataTransferObject;
 import org.example.service.PetService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PetController {
 
+    @Qualifier("petCacheService")
     private final PetService petService;
 
     @GetMapping
@@ -30,7 +32,7 @@ public class PetController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PetDataTransferObject> getPetById(@PathVariable Long id){
-        PetDataTransferObject pet = petService.findByIdWithCach(id);
+        PetDataTransferObject pet = petService.findById(id);
         return ResponseEntity.ok(pet);
     }
 

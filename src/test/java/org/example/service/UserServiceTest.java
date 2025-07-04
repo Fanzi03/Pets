@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import org.example.service.UserService;
 import org.example.dto.UserDataTransferObject;
-import org.example.dto.util.UserDataTransferObjectWithPetList;
 import org.example.entity.User;
 import org.example.mapping.UserMapper;
 import org.example.repository.UserRepository;
@@ -48,12 +47,11 @@ public class UserServiceTest {
 //	when(userMapper.toDTOWithPetList(user))
 //	    .thenReturn(userDataTransferObjectWithPetList);
 
-	Optional<UserDataTransferObject> result = userService.findUserById(userId);
+    UserDataTransferObject result = userService.findUserById(userId);
 //	Optional<UserDataTransferObjectWithPetList> result2 = 
 //	    userService.findUserById(userId);
 
-	assertTrue(result.isPresent());
-	assertEquals(userDataTransferObject, result.get());
+	assertEquals(userDataTransferObject, result);
 //	assertEquals(userDataTransferObjectWithPetList, result2.get());
 
 	verify(userMapper, times(1)).toDTO(user);

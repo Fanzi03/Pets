@@ -17,7 +17,6 @@ import org.example.entity.Pet;
 import org.example.enums.Gender;
 import org.example.mapping.PetMapper;
 import org.example.repository.PetRepository;
-import org.example.service.PetService;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -43,10 +42,9 @@ public class PetServiceTest {
 	when(petRepository.findById(petId)).thenReturn(Optional.of(pet));
 	when(petMapper.toDTO(pet)).thenReturn(petDTO);
 
-	Optional<PetDataTransferObject> result = petService.findById(petId);
+	PetDataTransferObject result = petService.findById(petId);
 	
-	assertTrue(result.isPresent());
-	assertEquals(petDTO, result.get());
+	assertEquals(petDTO, result);
 
 	verify(petMapper, times(1)).toDTO(pet);
     }

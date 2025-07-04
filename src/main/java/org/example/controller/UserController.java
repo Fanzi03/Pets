@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.PetDataTransferObject;
 import org.example.dto.UserDataTransferObject;
 import org.example.service.UserService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserController {
 
+    @Qualifier("userCacheService")
     private final UserService userService;
 
     @GetMapping
@@ -46,7 +48,7 @@ public class UserController {
 
     @GetMapping("/email/{email}")
     public ResponseEntity<UserDataTransferObject> getUserByEmail(@PathVariable @Email(message = "Invalid email format") String email){
-        return ResponseEntity.ok(userService.findUserByEmailWithCache(email));
+        return ResponseEntity.ok(userService.findUserByEmail(email));
     }
 
     @PutMapping("/{id}")

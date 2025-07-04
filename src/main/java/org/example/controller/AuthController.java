@@ -5,7 +5,10 @@ import javax.naming.AuthenticationException;
 import org.example.dto.JwtAuthenticationDto;
 import org.example.dto.RefreshTokenDto;
 import org.example.dto.UserCredentialsDto;
+import org.example.security.AuthService;
 import org.example.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,12 +25,14 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthController {
     
-    UserService userService;
+
+    @Qualifier("authServiceImpl")
+    AuthService authService;
 
     @PostMapping("/sign-in")
     public ResponseEntity<JwtAuthenticationDto> signIn(@RequestBody UserCredentialsDto userCredentialsDto){
         try{
-            JwtAuthenticationDto jwtAuthenticationDto = userService.signIn(userCredentialsDto);
+            JwtAuthenticationDto jwtAuthenticationDto = authService.signIn(userCredentialsDto);
             return ResponseEntity.ok(jwtAuthenticationDto);
         }catch(AuthenticationException e){
             throw new RuntimeException("Authetication failed! " + e.getMessage());
@@ -36,7 +41,7 @@ public class AuthController {
 
     @PostMapping("/refresh")
     public JwtAuthenticationDto refresh(@RequestBody RefreshTokenDto refreshTokenDto) throws Exception{
-        return userService.refreshToken(refreshTokenDto);
+        return authService.refreshToken(refreshTokenDto);
     }
 
 }
