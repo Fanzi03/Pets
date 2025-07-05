@@ -54,8 +54,9 @@ public class UserServiceConfig {
     @Primary
     public UserUpdateService userUpdateServiceImpl(
         UserRepository userRepository,
-        UserMapper userMapper
+        UserMapper userMapper,
+        PasswordEncoder passwordEncoder
     ){
-        return new UserUpdateServiceImpl(userRepository, userMapper);
+        return new UserUpdateServiceImpl(userRepository, userMapper, passwordEncoder);
     }
 }

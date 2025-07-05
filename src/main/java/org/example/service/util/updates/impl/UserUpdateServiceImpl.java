@@ -8,6 +8,7 @@ import org.example.exception.custom.update.InvalidUserUpdateException;
 import org.example.mapping.UserMapper;
 import org.example.repository.UserRepository;
 import org.example.service.util.updates.UserUpdateService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserUpdateServiceImpl implements UserUpdateService {
     UserRepository userRepository;
     UserMapper userMapper;
+    PasswordEncoder passwordEncoder;
     @Transactional
     public UserDataTransferObject update (UserDataTransferObject userDataTransferObject, Long id) {
         return userRepository.findById(id).map(
@@ -29,7 +31,7 @@ public class UserUpdateServiceImpl implements UserUpdateService {
                     }
 
                     if(!existUser.getPassword().equals(userDataTransferObject.getPassword())) {
-                        existUser.setPassword(userDataTransferObject.getPassword());
+                        existUser.setPassword(passwordEncoder.encode(userDataTransferObject.getPassword()));
                     }
 
                     if(existUser.getAge() != userDataTransferObject.getAge()) {
