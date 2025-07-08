@@ -18,6 +18,7 @@ import java.util.Date;
 public class JwtService {
 
     private static final Logger LOGGER = LogManager.getLogger(JwtService.class);
+    
     @Value("8074658237c236e39e96e909ac1abb25a3e1773b100096ad6877c439cd452c17")
     private String jwtSecret;
 
@@ -67,7 +68,7 @@ public class JwtService {
     }
 
     private String generateJwtToken(String email) {
-        Date date = Date.from(LocalDateTime.now().plusMinutes(1).atZone(ZoneId.systemDefault()).toInstant());
+        Date date = Date.from(LocalDateTime.now().plusHours(1).atZone(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
                 .subject(email)
                 .expiration(date)

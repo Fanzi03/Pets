@@ -6,9 +6,8 @@ import org.example.dto.JwtAuthenticationDto;
 import org.example.dto.RefreshTokenDto;
 import org.example.dto.UserCredentialsDto;
 import org.example.security.AuthService;
-import org.example.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +34,7 @@ public class AuthController {
             JwtAuthenticationDto jwtAuthenticationDto = authService.signIn(userCredentialsDto);
             return ResponseEntity.ok(jwtAuthenticationDto);
         }catch(AuthenticationException e){
-            throw new RuntimeException("Authetication failed! " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
 

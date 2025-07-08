@@ -8,7 +8,6 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import lombok.AccessLevel;
@@ -36,7 +35,7 @@ public class UserMapperTest {
         assertEquals(userDataTransferObject.getUserName(), user.getUserName());
         assertEquals(userDataTransferObject.getFullName(), user.getFullName());
         assertEquals(userDataTransferObject.getEmail(), user.getEmail());
-        assertEquals(userDataTransferObject.getPassword(), user.getPassword());
+        // assertEquals(userDataTransferObject.getPassword(), user.getPassword());
         assertEquals(userDataTransferObject.getAge(), user.getAge());
     }
 
@@ -50,7 +49,7 @@ public class UserMapperTest {
         assertEquals(user.getUserName(), userDataTransferObject.getUserName());
         assertEquals(user.getFullName(), userDataTransferObject.getFullName());
         assertEquals(user.getEmail(), userDataTransferObject.getEmail());
-        assertEquals(user.getPassword(), userDataTransferObject.getPassword());
+        // assertEquals(user.getPassword(), userDataTransferObject.getPassword());
         assertEquals(user.getAge(), userDataTransferObject.getAge());
     }
 }

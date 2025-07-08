@@ -28,31 +28,31 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<UserDataTransferObject>> getUsers(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size
+        @RequestParam(value = "page",defaultValue = "0") int page,
+        @RequestParam(value = "size",defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(userService.getUsers(pageable));
     }
 
     @GetMapping("/{id}/pets")
-    public ResponseEntity<List<PetDataTransferObject>> getUserPets(@PathVariable Long id){
+    public ResponseEntity<List<PetDataTransferObject>> getUserPets(@PathVariable("id") Long id){
         return ResponseEntity.ok(userService.getUserPets(id));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDataTransferObject> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDataTransferObject> getUserById(@PathVariable("id") Long id) {
         UserDataTransferObject user = userService.findUserById(id);
         return ResponseEntity.ok(user);
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<UserDataTransferObject> getUserByEmail(@PathVariable @Email(message = "Invalid email format") String email){
+    public ResponseEntity<UserDataTransferObject> getUserByEmail(@PathVariable("email") @Email(message = "Invalid email format") String email){
         return ResponseEntity.ok(userService.findUserByEmail(email));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String,Object>> userUpdate(@PathVariable Long id, @RequestBody @Valid UserDataTransferObject userUpdate) {
+    public ResponseEntity<Map<String,Object>> userUpdate(@PathVariable("id") Long id, @RequestBody @Valid UserDataTransferObject userUpdate) {
         UserDataTransferObject userdtoUpdate = userService.update(userUpdate, id);
         Map<String,Object> response = new HashMap<>();
         response.put("message", "User with id: " + id + " updated");
@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String,Object>> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Map<String,Object>> deleteUser(@PathVariable("id") Long id) {
        UserDataTransferObject deletedUserDataTransferObject = userService.findUserById(id);
        userService.deleteById(id);
        Map<String,Object> response = new HashMap<>();
