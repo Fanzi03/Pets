@@ -24,14 +24,14 @@ public class PetController {
 
     @GetMapping
     public ResponseEntity<Page<PetDataTransferObject>> getAllPets(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size
+        @RequestParam(value = "page",defaultValue = "0") int page,
+        @RequestParam(value = "size",defaultValue = "10") int size
     ){
         return ResponseEntity.ok(petService.getPets(PageRequest.of(page, size))); 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PetDataTransferObject> getPetById(@PathVariable Long id){
+    public ResponseEntity<PetDataTransferObject> getPetById(@PathVariable("id") Long id){
         PetDataTransferObject pet = petService.findById(id);
         return ResponseEntity.ok(pet);
     }
@@ -47,7 +47,7 @@ public class PetController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deletePet(@PathVariable Long id){
+    public ResponseEntity<Map<String, Object>> deletePet(@PathVariable("id") Long id){
         PetDataTransferObject delPetDataTransferObject = petService.findById(id);
         petService.delete(id);
         Map<String, Object> response = new HashMap<>();
@@ -58,7 +58,7 @@ public class PetController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updatePet(@PathVariable Long id, @RequestBody @Valid PetDataTransferObject petUpdate){
+    public ResponseEntity<Map<String, Object>> updatePet(@PathVariable("id") Long id, @RequestBody @Valid PetDataTransferObject petUpdate){
         PetDataTransferObject petDtoUpadate = petService.update(id, petUpdate);
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Pet with id: " + id + " updated");

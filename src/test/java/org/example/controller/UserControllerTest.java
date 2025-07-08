@@ -13,7 +13,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -83,7 +82,7 @@ public class UserControllerTest implements GettingAccessToken{
     void getUsers() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.get("/users").param("page", "0")
             .param("size", "10")
-            .header("Authorization", "Bearer " + getTestAccessToken())).andDo(print()).andExpect(status().isOk());
+            .header("Authorization", "Bearer " + getTestAccessToken())).andExpect(status().isOk());
     }
 
     @Test
