@@ -44,14 +44,12 @@ public class AuthControllerTest {
        UserCredentialsDto userCDto = UserCredentialsDto.builder().email("workemail@gmail.com")
         .password("12345").build();
 
-        System.out.println("RAW RESPONSE = " + userCDto);
         String userJson = objectMapper.writeValueAsString(userCDto); 
 
         String jsonToken = mockMvc.perform(MockMvcRequestBuilders.post("/auth/sign-in")
             .contentType(MediaType.APPLICATION_JSON).content(userJson)).andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        System.out.println("RAW RESPONSE = " + jsonToken);
         JwtAuthenticationDto jwtAuthenticationDto = objectMapper.readValue(jsonToken, JwtAuthenticationDto.class);
 
         assertEquals(userCDto.getEmail(), jwtService.getEmailFromToken(jwtAuthenticationDto.getToken()));

@@ -2,7 +2,6 @@ package org.example.mapping;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import java.time.LocalDate;
 import org.example.dto.PetDataTransferObject;
 import org.example.entity.Pet;
 import org.example.enums.Gender;
@@ -27,10 +26,8 @@ public class PetMapperTest {
     void toDto() {
         Long petId = 1L;
 
-        Pet pet = new Pet(
-                petId, "PET1", "dog",
-                Gender.MAN, 15, 2009,
-                LocalDate.of(2025, 6, 10), null);
+        Pet pet = Pet.builder().id(petId).name("PET1").type("dog")
+        .gender(Gender.MAN).age(15).build();
 
         PetDataTransferObject petDto = petMapper.toDTO(pet);
 
@@ -39,13 +36,12 @@ public class PetMapperTest {
         assertThat(petDto.getType(), equalTo(pet.getType()));
         assertThat(petDto.getGender(), equalTo(pet.getGender()));
         assertThat(petDto.getAge(), equalTo(pet.getAge()));
-
     }
 
     @Test
     void toEntity() {
-        PetDataTransferObject petDto = new PetDataTransferObject(
-                "PET1", "dog", Gender.MAN, 15, null);
+        PetDataTransferObject petDto = PetDataTransferObject.builder().name("PET1").type("dog")
+            .gender(Gender.MAN).age(15).build();
 
         Pet pet = petMapper.toEntity(petDto);
 

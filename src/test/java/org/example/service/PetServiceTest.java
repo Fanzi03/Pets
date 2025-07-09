@@ -17,6 +17,7 @@ import org.example.entity.Pet;
 import org.example.enums.Gender;
 import org.example.mapping.PetMapper;
 import org.example.repository.PetRepository;
+import org.example.service.impl.PetServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -29,15 +30,20 @@ public class PetServiceTest {
     PetMapper petMapper;
 
     @InjectMocks
-    PetService petService;
+    PetServiceImpl petService;
 
     @Test
     void getPetTest(){
 
 	Long petId = 1L;
 	
-	Pet pet = new Pet(petId, "PET1", "parrot", Gender.MAN, 15, 2009, LocalDate.of(2025,6,10), null);
-	PetDataTransferObject petDTO = new PetDataTransferObject(petId,"PET1", "parrot", Gender.MAN, 15, null);
+	Pet pet = new Pet(
+        petId, "PET1", "parrot", Gender.MAN, 15, 2009, 
+        LocalDate.of(2025,6,10), null
+    );
+	PetDataTransferObject petDTO = new PetDataTransferObject(
+        petId,"PET1", "parrot", Gender.MAN, 15, null
+    );
 	
 	when(petRepository.findById(petId)).thenReturn(Optional.of(pet));
 	when(petMapper.toDTO(pet)).thenReturn(petDTO);

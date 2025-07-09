@@ -47,7 +47,7 @@ public class PetControllerTest implements GettingAccessToken{
         mockMvc.perform(MockMvcRequestBuilders.post("/pets/add").contentType(MediaType.APPLICATION_JSON)
             .content(petJson)
             .header("Authorization", "Bearer " + getTestAccessToken())).andExpect(status().isOk())
-            .andExpect(jsonPath("$.addedPet.id").value(1));
+            .andExpect(jsonPath("$.body.id").value(1));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class PetControllerTest implements GettingAccessToken{
     void deletePetTest() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.delete("/pets/100")
             .header("Authorization", "Bearer " + getTestAccessToken())).andExpect(status().isOk())
-            .andExpect(jsonPath("$.deletedPet.age").value(1));
+            .andExpect(jsonPath("$.body.age").value(1));
     }
 
 
@@ -85,8 +85,8 @@ public class PetControllerTest implements GettingAccessToken{
 
         mockMvc.perform(MockMvcRequestBuilders.put("/pets/100").contentType(MediaType.APPLICATION_JSON)
             .content(petJson).header("Authorization", "Bearer " + getTestAccessToken()))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.updatedPet.ownerName")
-            .value(petDataTransferObject.getOwnerName()));
+            .andExpect(status().isOk()).andExpect(jsonPath("$.body.ownerName")
+            .value(petDataTransferObject.getOwnerName()))
+            .andExpect(jsonPath("$.status").value("ACCEPTED"));
     }
 }

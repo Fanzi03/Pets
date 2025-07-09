@@ -80,6 +80,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.assertj:assertj-core:3.27.3'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.3'
+    testImplementation 'it.ozimov:embedded-redis:0.7.3'
     testImplementation 'org.hamcrest:hamcrest:2.2'
     //
 

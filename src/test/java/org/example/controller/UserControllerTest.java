@@ -39,8 +39,9 @@ public class UserControllerTest implements GettingAccessToken{
         String userJson = objectMapper.writeValueAsString(userDataTransferObject);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/users/registration")
-            .contentType(MediaType.APPLICATION_JSON).content(userJson)).andExpect(status().isOk());
-    }
+            .contentType(MediaType.APPLICATION_JSON).content(userJson)).andExpect(status().isOk())
+            .andExpect(jsonPath("$.status").value("CREATED"));
+        }
 
     
     @Test
@@ -74,7 +75,7 @@ public class UserControllerTest implements GettingAccessToken{
             mockMvc.perform(MockMvcRequestBuilders.put("/users/100")
                 .contentType(MediaType.APPLICATION_JSON).content(userJson)
                 .header("Authorization", "Bearer " + getTestAccessToken())).andExpect(status().isOk())
-                .andExpect(jsonPath("$.updatedUser.email").value("workemail@gmail.com"));
+                .andExpect(jsonPath("$.body.email").value("workemail@gmail.com"));
     }
     
     @Test
@@ -98,6 +99,6 @@ public class UserControllerTest implements GettingAccessToken{
     void deleteUser() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.delete("/users/100")
             .header("Authorization", "Bearer " + getTestAccessToken())).andExpect(status().isOk())
-            .andExpect(jsonPath("$.deletedUser.email").value("workemail@gmail.com"));
+            .andExpect(jsonPath("$.body.email").value("workemail@gmail.com"));
     }
 }
