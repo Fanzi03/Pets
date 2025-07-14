@@ -9,7 +9,9 @@ import org.example.service.util.updates.UserUpdateService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface UserService extends UserCreateService, UserUpdateService{
+public interface UserService extends UserCreateService<UserDataTransferObject>, 
+        UserUpdateService<UserDataTransferObject>
+{
     public Page<UserDataTransferObject> getUsers(Pageable pageable);
     public List<PetDataTransferObject> getUserPets(Long id);
     public UserDataTransferObject findUserById(Long id);

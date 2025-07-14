@@ -46,6 +46,11 @@ public class PetController implements ControllerHelper{
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/add/random")
+    public ResponseEntity<PetDataTransferObject> addRandomPet(){
+        return ResponseEntity.ok(petService.addRandomPet());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deletePet(@PathVariable("id") Long id){
         PetDataTransferObject delPetDataTransferObject = petService.findById(id);
@@ -64,4 +69,5 @@ public class PetController implements ControllerHelper{
         );
     	return ResponseEntity.ok(response);
     }
+
 }

@@ -42,6 +42,9 @@ public class CacheKeyGenerator {
     public static String allPetsPagePattern(){
         return "pets:page:*";
     }
+    public static String firstPagesPattern(){
+        return "pets:page:[0-4]:*";
+    }
     public static String allUsersPagePattern(){
         return "users:page:*";
     }

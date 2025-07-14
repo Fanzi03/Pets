@@ -2,20 +2,21 @@ package org.example.config;
 
 import org.example.cache.CacheService;
 import org.example.cache.PetCacheService;
+import org.example.entity.Pet;
 import org.example.mapping.PetMapper;
 import org.example.repository.PetRepository;
-import org.example.repository.UserRepository;
 import org.example.service.PetService;
 import org.example.service.impl.PetServiceImpl;
+import org.example.service.util.UserResolver;
 import org.example.service.util.add.PetCreateService;
 import org.example.service.util.add.impl.PetCreateServiceImpl;
 import org.example.service.util.updates.PetUpdateService;
 import org.example.service.util.updates.impl.PetUpdateServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-
 
 @Configuration
 public class PetServiceConfig {
@@ -33,29 +34,29 @@ public class PetServiceConfig {
     public PetService petServiceImpl(
         PetRepository petRepository,
         PetMapper petMapper,
-        @Qualifier("petCreateServiceImpl") PetCreateService petCreateService,
-        @Qualifier("petUpdateServiceImpl") PetUpdateService petUpdateService
+        @Qualifier("petCreateServiceImpl") PetCreateService<Pet> petCreateService,
+        @Qualifier("petUpdateServiceImpl") PetUpdateService<Pet> petUpdateService
     ){
         return new PetServiceImpl(petRepository, petMapper, petCreateService, petUpdateService);
     }
 
     @Bean("petCreateServiceImpl")
     @Primary
-    public PetCreateService petCreateService(
+    public PetCreateService<Pet> petCreateService(
         PetRepository petRepository, 
-        PetMapper petMapper,
-        UserRepository userRepository
+        UserResolver userResolver,
+        @Value("${VALIDATION_ANIMAL_TYPES}") String[] animalTypes,
+        @Value("${VALIDATION_ANIMAL_NAMES}") String[] animalNames
     ){
-        return new PetCreateServiceImpl(petRepository, petMapper, userRepository);
+        return new PetCreateServiceImpl(petRepository, userResolver, animalTypes, animalNames);
     }
 
     @Bean("petUpdateServiceImpl")
     @Primary
-    public PetUpdateService petUpdateService(
+    public PetUpdateService<Pet> petUpdateService(
         PetRepository petRepository,
-        PetMapper petMapper,
-        UserRepository userRepository
+        UserResolver userResolver
     ){
-        return new PetUpdateServiceImpl(petRepository, petMapper, userRepository);
+        return new PetUpdateServiceImpl(petRepository, userResolver);
     }
 }

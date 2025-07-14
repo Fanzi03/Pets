@@ -33,10 +33,10 @@ public class UserServiceImpl implements UserService{
     PetMapper petMapper;
 
     @Qualifier("userCreateServiceImpl")
-    UserCreateService userCreateService;
+    UserCreateService<User> userCreateService;
     
     @Qualifier("userUpdateServiceImpl")
-    UserUpdateService userUpdateService;
+    UserUpdateService<User> userUpdateService;
 
     @Transactional(readOnly = true)
     public Page<UserDataTransferObject> getUsers(Pageable pageable) {
@@ -68,8 +68,7 @@ public class UserServiceImpl implements UserService{
     }
 
     public UserDataTransferObject createUser(UserDataTransferObject userDataTransferObject) {
-        UserDataTransferObject createdUser = userCreateService.createUser(userDataTransferObject);
-        return createdUser;
+        return userMapper.toDTO(userCreateService.createUser(userMapper.toEntity(userDataTransferObject)));
     }
 
     public void deleteById(Long id) {
@@ -79,7 +78,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDataTransferObject update(UserDataTransferObject userDataTransferObject, Long id) {
-        UserDataTransferObject updatedUser = userUpdateService.update(userDataTransferObject, id);
-        return updatedUser;
+        return userMapper.toDTO(userUpdateService.update(userMapper.toEntity(userDataTransferObject), id));
     }
 }

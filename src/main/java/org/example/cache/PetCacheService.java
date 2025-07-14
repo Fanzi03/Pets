@@ -29,6 +29,13 @@ public class PetCacheService implements PetService, CacheCheckService{
     }
 
     @Override
+    public PetDataTransferObject addRandomPet() {
+        PetDataTransferObject pet = petServiceImpl.addRandomPet();
+        cacheService.evictedByPattern(CacheKeyGenerator.firstPagesPattern());        
+        return pet;
+    }
+
+    @Override
     public PetDataTransferObject update(Long id, PetDataTransferObject updatedPetDataTransferObject) {
         PetDataTransferObject updatedPet = petServiceImpl.update(id, updatedPetDataTransferObject);
         String key = CacheKeyGenerator.petKey(id);

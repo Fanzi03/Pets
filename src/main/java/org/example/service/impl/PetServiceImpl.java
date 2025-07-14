@@ -10,6 +10,7 @@ import org.example.exception.custom.NotFoundPetException;
 import org.example.mapping.PetMapper;
 import org.example.repository.PetRepository;
 import org.example.service.PetService;
+import org.example.service.util.UserResolver;
 import org.example.service.util.add.PetCreateService;
 import org.example.service.util.updates.PetUpdateService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,10 +26,10 @@ public class PetServiceImpl implements PetService {
     PetMapper petMapper;
 
     @Qualifier("petCreateServiceImpl")
-    PetCreateService petCreateServiceImpl;
+    PetCreateService<Pet> petCreateServiceImpl;
     
     @Qualifier("petUpdateServiceImpl")
-    PetUpdateService petUpdateServiceImpl;
+    PetUpdateService<Pet> petUpdateServiceImpl;
 
     public Page<PetDataTransferObject> getPets(Pageable pageable) {
         Page<Pet> pets = petRepository.findAll(pageable);
@@ -50,8 +51,8 @@ public class PetServiceImpl implements PetService {
     }
 
     public PetDataTransferObject add(PetDataTransferObject petDataTransferObject){
-        PetDataTransferObject pet = petCreateServiceImpl.add(petDataTransferObject);
-        return pet;
+        PetDataTransferObject petUpdated =  petMapper.toDTO(petCreateServiceImpl.add(petMapper.toEntity(petDataTransferObject)));
+        return petUpdated;
     }
 
     public void delete(Long petId){
@@ -61,14 +62,19 @@ public class PetServiceImpl implements PetService {
         petRepository.delete(pet);
     }
 
-    public PetDataTransferObject update(Long id, PetDataTransferObject updatedPetDataTransferObject){
-        PetDataTransferObject updatedPet = petUpdateServiceImpl.update(id, updatedPetDataTransferObject);
-        return updatedPet;
-        // Pet doesn't have important fields except ownerName
+    public PetDataTransferObject update(Long id, PetDataTransferObject updatedPetDataTransferObject){ 
+        return petMapper.toDTO(
+            petUpdateServiceImpl.update(id, petMapper.toEntity(updatedPetDataTransferObject))
+        );
     }
 
     @Scheduled(cron = "0 0 0 * * *")
     public void incrementAllPetsAge(){
         petRepository.incrementAllAge();
+    }
+
+    @Override
+    public PetDataTransferObject addRandomPet() {
+        return petMapper.toDTO(petCreateServiceImpl.addRandomPet());
     }
 }

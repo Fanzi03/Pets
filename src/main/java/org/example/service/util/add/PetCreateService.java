@@ -1,7 +1,6 @@
 package org.example.service.util.add;
 
-import org.example.dto.PetDataTransferObject;
-
-public interface PetCreateService {
-    public PetDataTransferObject add(PetDataTransferObject petDataTransferObject);
+public interface PetCreateService <T>{
+    public T add(T petData);
+    public T addRandomPet();
 }

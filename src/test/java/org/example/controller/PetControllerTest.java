@@ -23,7 +23,8 @@ import lombok.experimental.FieldDefaults;
 @SpringBootTest
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @TestPropertySource(properties = {
-    "VALIDATION_ANIMAL_TYPES=dog,cat" 
+    "VALIDATION_ANIMAL_TYPES=dog,cat",
+    "VALIDATION_ANIMAL_NAMES=Buddy,Max,Bella,Charlie,Lucy,Cooper,Fluffy,Shadow" 
 })
 @AutoConfigureMockMvc
 public class PetControllerTest implements GettingAccessToken{

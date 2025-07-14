@@ -1,43 +1,60 @@
 package org.example.service.util.add.impl;
 
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.example.dto.PetDataTransferObject;
+import lombok.experimental.NonFinal;
+
 import org.example.entity.Pet;
 import org.example.entity.User;
-import org.example.exception.custom.add.InvalidAddPetException;
-import org.example.mapping.PetMapper;
+import org.example.enums.Gender;
 import org.example.repository.PetRepository;
-import org.example.repository.UserRepository;
+import org.example.service.util.UserResolver;
 import org.example.service.util.add.PetCreateService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.Year;
+import java.util.concurrent.ThreadLocalRandom;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class PetCreateServiceImpl implements PetCreateService {
+public class PetCreateServiceImpl implements PetCreateService<Pet> {
     PetRepository petRepository;
-    PetMapper petMapper;
-    UserRepository userRepository;
+    UserResolver userResolver;
+
+    @NonFinal String[] animalTypes;
+    @NonFinal String[] animalNames;
 
     @Transactional
-    public PetDataTransferObject add (PetDataTransferObject petDataTransferObject) {
-        Pet petEntity = petMapper.toEntity(petDataTransferObject);
+    public Pet add (Pet pet) {
+        String ownerName = pet.getUser() != null ? pet.getUser().getUserName() : null;
+        User resolvedUser = userResolver.resolveUser(ownerName);
 
-        String ownerName = petDataTransferObject.getOwnerName();
+        pet.setUser(resolvedUser);
+        pet.setCreatedAt(LocalDate.now());
+        return petRepository.save(pet);
+    }
 
-        if(ownerName != null && !ownerName.isBlank()){
-            User user = userRepository.findByUserName(ownerName)
-                    .orElseThrow(() -> new InvalidAddPetException("User with userName " + ownerName + " not found"));
-            petEntity.setUser(user);
-        }
-        else petEntity.setUser(null); // without owner
+    @Override
+    @Transactional
+    public Pet addRandomPet() {
+        ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
+        int randomAge = threadLocalRandom.nextInt(20);
+        int randomNumber = threadLocalRandom.nextInt(2);
 
-        petEntity.setCreatedAt(LocalDate.now());
-        return petMapper.toDTO(petRepository.save(petEntity));
+        Gender gender = generateRandomGender(randomNumber);
+        String randomName = animalNames[threadLocalRandom.nextInt(animalNames.length)];
+        String randomType = animalTypes[threadLocalRandom.nextInt(animalTypes.length)];
+
+        Pet randomPet = Pet.builder().name(randomName).age(randomAge).createdAt(LocalDate.now()).user(null)
+            .birthYear(Year.now().getValue() - randomAge).type(randomType).gender(gender).build();
+
+        return petRepository.save(randomPet);
+    }
+
+    private Gender generateRandomGender(int randomNumber){
+        if(randomNumber == 1) return Gender.MAN;
+        return Gender.WOMAN;
     }
 }
-
-
