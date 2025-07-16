@@ -11,7 +11,6 @@ import org.example.enums.Gender;
 import org.example.repository.PetRepository;
 import org.example.service.util.UserResolver;
 import org.example.service.util.add.PetCreateService;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -26,7 +25,6 @@ public class PetCreateServiceImpl implements PetCreateService<Pet> {
     @NonFinal String[] animalTypes;
     @NonFinal String[] animalNames;
 
-    @Transactional
     public Pet add (Pet pet) {
         String ownerName = pet.getUser() != null ? pet.getUser().getUserName() : null;
         User resolvedUser = userResolver.resolveUser(ownerName);
@@ -37,7 +35,6 @@ public class PetCreateServiceImpl implements PetCreateService<Pet> {
     }
 
     @Override
-    @Transactional
     public Pet addRandomPet() {
         ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
         int randomAge = threadLocalRandom.nextInt(20);

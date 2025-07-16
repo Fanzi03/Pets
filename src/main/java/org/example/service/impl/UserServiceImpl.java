@@ -22,9 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService{
@@ -38,7 +37,6 @@ public class UserServiceImpl implements UserService{
     @Qualifier("userUpdateServiceImpl")
     UserUpdateService<User> userUpdateService;
 
-    @Transactional(readOnly = true)
     public Page<UserDataTransferObject> getUsers(Pageable pageable) {
         Page<User> users = userRepository.findAll(pageable);
         if(!users.hasContent()){throw new NotFoundUserException("Users not found");};
@@ -54,35 +52,35 @@ public class UserServiceImpl implements UserService{
         return pets;
     }
 
-    @Transactional
     public UserDataTransferObject findUserById(Long id) {
         return userMapper.toDTO(userRepository.findById(id).orElseThrow(() ->
             new NotFoundUserException("User with this id not found")
         ));
     }
 
-    @Transactional
     public UserDataTransferObject findUserByEmail(String email){
         return userMapper.toDTO(userRepository.findByEmail(email)
             .orElseThrow(() -> new NotFoundUserException("User not found with this email " + email)));
     }
 
-    @Transactional
     public UserDataTransferObject findUserByUserName(String userName){
         return userMapper.toDTO(userRepository.findByUserName(userName)
             .orElseThrow(() -> new NotFoundUserException("User not found with username " + userName)));
     }
 
+    @Transactional
     public UserDataTransferObject createUser(UserDataTransferObject userDataTransferObject) {
         return userMapper.toDTO(userCreateService.createUser(userMapper.toEntity(userDataTransferObject)));
     }
 
+    @Transactional
     public void deleteById(Long id) {
         if(!userRepository.existsById(id)) throw new NotFoundUserException("User not found with id " + id);
         userRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public UserDataTransferObject update(UserDataTransferObject userDataTransferObject, Long id) {
         return userMapper.toDTO(userUpdateService.update(userMapper.toEntity(userDataTransferObject), id));
     }

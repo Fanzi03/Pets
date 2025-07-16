@@ -13,7 +13,6 @@ import org.example.exception.custom.update.InvalidPetUpdateException;
 import org.example.repository.PetRepository;
 import org.example.service.util.UserResolver;
 import org.example.service.util.updates.PetUpdateService;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -21,7 +20,6 @@ public class PetUpdateServiceImpl implements PetUpdateService<Pet> {
     PetRepository petRepository;
     UserResolver userResolver;
 
-    @Transactional
     public Pet update(
             Long id,
             Pet updatedPet) {
