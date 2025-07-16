@@ -16,6 +16,7 @@ public interface UserService extends UserCreateService<UserDataTransferObject>,
     public List<PetDataTransferObject> getUserPets(Long id);
     public UserDataTransferObject findUserById(Long id);
     public UserDataTransferObject findUserByEmail(String email);
+    public UserDataTransferObject findUserByUserName(String userName);
     public void deleteById(Long id);
 }
 

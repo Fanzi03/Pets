@@ -66,6 +66,14 @@ public class UserControllerTest implements GettingAccessToken{
             .andExpect(jsonPath("$.email").value("workemail@gmail.com"));
     }
 
+    @Test
+    @Sql(scripts = {"/data/cleanUp.sql", "/data/insertData.sql"})
+    void getUserByUserName() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/username/FANZI03")
+            .header("Authorization", "Bearer " + getTestAccessToken())).andExpect(status().isOk())
+            .andExpect(jsonPath("$.userName").value("FANZI03"));
+    }
+
 
     @Test
     @Sql(scripts = {"/data/cleanUp.sql", "/data/insertData.sql"})

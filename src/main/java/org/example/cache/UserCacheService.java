@@ -50,6 +50,12 @@ public class UserCacheService implements UserService, CacheCheckService{
     }
 
     @Override
+    public UserDataTransferObject findUserByUserName(String userName){
+        return getFromCacheOrCompute(CacheKeyGenerator.userNameKey(userName), UserDataTransferObject.class,
+             () -> userService.findUserByUserName(userName));
+    }
+
+    @Override
     public void deleteById(Long id) {
         userService.deleteById(id);
         String cacheKey = CacheKeyGenerator.userKey(id);
@@ -58,6 +64,7 @@ public class UserCacheService implements UserService, CacheCheckService{
         cacheService.evictedByPattern(CacheKeyGenerator.allUserEmailPattern());
         cacheService.evictedByPattern(CacheKeyGenerator.allUsersPattern());
         cacheService.evictedByPattern(CacheKeyGenerator.allUsersPagePattern());
+        cacheService.evictedByPattern(CacheKeyGenerator.allUserNamePattern());
     }
 
     @Override

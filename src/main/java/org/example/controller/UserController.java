@@ -54,6 +54,13 @@ public class UserController implements ControllerHelper {
     ){
         return ResponseEntity.ok(userService.findUserByEmail(email));
     }
+    
+    @GetMapping("username/{username}")
+    public ResponseEntity<UserDataTransferObject> getUserByUserName(
+        @PathVariable("username") String userName 
+    ){
+        return ResponseEntity.ok(userService.findUserByUserName(userName));
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Map<String,Object>> userUpdate(

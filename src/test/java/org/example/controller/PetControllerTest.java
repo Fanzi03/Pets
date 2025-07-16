@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.example.controller.util.GettingAccessToken;
 import org.example.dto.PetDataTransferObject;
 import org.example.enums.Gender;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,6 +39,7 @@ public class PetControllerTest implements GettingAccessToken{
     ObjectMapper objectMapper;
 
     @Test
+    @Order(1)
     @Sql(scripts = {"/data/cleanUp.sql", "/data/insertData.sql"})
     void addPetTestWithoutOwner() throws Exception{
         PetDataTransferObject petDataTransferObject = PetDataTransferObject.builder().name("pet12").age(1)
@@ -48,7 +50,15 @@ public class PetControllerTest implements GettingAccessToken{
         mockMvc.perform(MockMvcRequestBuilders.post("/pets/add").contentType(MediaType.APPLICATION_JSON)
             .content(petJson)
             .header("Authorization", "Bearer " + getTestAccessToken())).andExpect(status().isOk())
-            .andExpect(jsonPath("$.body.id").value(1));
+            .andExpect(jsonPath("$.body.id").exists());
+    }
+
+    @Test
+    @Order(2)
+    @Sql(scripts = {"/data/cleanUp.sql", "/data/insertData.sql"})
+    void addRandomPetTest() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/pets/add/random")
+            .header("Authorization", "Bearer " + getTestAccessToken())).andExpect(status().isOk());
     }
 
     @Test

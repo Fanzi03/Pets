@@ -67,6 +67,12 @@ public class UserServiceImpl implements UserService{
             .orElseThrow(() -> new NotFoundUserException("User not found with this email " + email)));
     }
 
+    @Transactional
+    public UserDataTransferObject findUserByUserName(String userName){
+        return userMapper.toDTO(userRepository.findByUserName(userName)
+            .orElseThrow(() -> new NotFoundUserException("User not found with username " + userName)));
+    }
+
     public UserDataTransferObject createUser(UserDataTransferObject userDataTransferObject) {
         return userMapper.toDTO(userCreateService.createUser(userMapper.toEntity(userDataTransferObject)));
     }

@@ -30,6 +30,16 @@ public class CacheKeyGenerator {
 
         return "user:email:" + email.toLowerCase();
     } 
+    
+    public static String userNameKey(String userName){
+        if(userName == null || userName.isEmpty()){
+            throw new IllegalArgumentException(
+                "Username cannot be null or empty"
+            );
+        }
+
+        return "user:username:" + userName.toLowerCase();
+    }
 
     public static String usersPageKey(int page, int size){
         return "users:page:" + page + ":size:" + size;
@@ -58,6 +68,10 @@ public class CacheKeyGenerator {
 
     public static String allUserEmailPattern(){
         return "user:email:*";
+    }
+
+    public static String allUserNamePattern(){
+        return "user:username:*";
     }
 
     public static String userPetsKey(Long userId){
