@@ -3,8 +3,7 @@ package org.example.config;
 import org.example.cache.CacheService;
 import org.example.cache.UserCacheService;
 import org.example.entity.User;
-import org.example.mapping.PetMapper;
-import org.example.mapping.UserMapper;
+import org.example.mapping.MapperService;
 import org.example.repository.UserRepository;
 import org.example.service.UserService;
 import org.example.service.impl.UserServiceImpl;
@@ -34,12 +33,11 @@ public class UserServiceConfig {
     @Bean("userServiceImpl")
     public UserService userServiceImpl(
         UserRepository userRepository,
-        UserMapper userMapper, 
-        PetMapper petMapper,
+        MapperService mapperService,
         @Qualifier("userCreateServiceImpl") UserCreateService<User> userCreateService,
         @Qualifier("userUpdateServiceImpl") UserUpdateService<User> userUpdateService
     ){
-        return new UserServiceImpl(userRepository, userMapper, petMapper, userCreateService, userUpdateService);
+        return new UserServiceImpl(userRepository, mapperService, userCreateService, userUpdateService);
     }
 
     @Bean("userCreateServiceImpl")

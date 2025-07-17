@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.Year;
+
 import org.example.enums.Gender;
 
 
@@ -40,5 +41,4 @@ public class Pet {
         this.age = age;
         this.birthYear = Year.now().getValue() - age;
     }
-
 }

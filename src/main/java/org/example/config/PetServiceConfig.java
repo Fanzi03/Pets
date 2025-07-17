@@ -3,7 +3,7 @@ package org.example.config;
 import org.example.cache.CacheService;
 import org.example.cache.PetCacheService;
 import org.example.entity.Pet;
-import org.example.mapping.PetMapper;
+import org.example.mapping.MapperService;
 import org.example.repository.PetRepository;
 import org.example.service.PetService;
 import org.example.service.impl.PetServiceImpl;
@@ -33,11 +33,11 @@ public class PetServiceConfig {
     @Bean("petServiceImpl")
     public PetService petServiceImpl(
         PetRepository petRepository,
-        PetMapper petMapper,
+        MapperService mapperService,
         @Qualifier("petCreateServiceImpl") PetCreateService<Pet> petCreateService,
         @Qualifier("petUpdateServiceImpl") PetUpdateService<Pet> petUpdateService
     ){
-        return new PetServiceImpl(petRepository, petMapper, petCreateService, petUpdateService);
+        return new PetServiceImpl(petRepository, mapperService, petCreateService, petUpdateService);
     }
 
     @Bean("petCreateServiceImpl")

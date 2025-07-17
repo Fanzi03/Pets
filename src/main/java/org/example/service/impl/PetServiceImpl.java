@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 import org.example.dto.PetDataTransferObject;
 import org.example.entity.Pet;
 import org.example.exception.custom.NotFoundPetException;
-import org.example.mapping.PetMapper;
+import org.example.mapping.MapperService;
 import org.example.repository.PetRepository;
 import org.example.service.PetService;
 import org.example.service.util.add.PetCreateService;
@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PetServiceImpl implements PetService {
     PetRepository petRepository;
-    PetMapper petMapper;
+    MapperService mapperService;
 
     @Qualifier("petCreateServiceImpl")
     PetCreateService<Pet> petCreateServiceImpl;
@@ -35,19 +35,20 @@ public class PetServiceImpl implements PetService {
         Page<Pet> pets = petRepository.findAll(pageable);
         if(!pets.hasContent()) throw new NotFoundPetException("Pets not found");
 
-        Page<PetDataTransferObject> petDtos = pets.map(petMapper::toDTO);
-        return petDtos;
+        return mapperService.mapPetsToDtoPage(pets);
     }
 
     public PetDataTransferObject findById(Long petId){
-        return petMapper.toDTO(petRepository.findById(petId).orElseThrow(() -> 
+        return mapperService.mapPetToDto(petRepository.findById(petId).orElseThrow(() -> 
             new NotFoundPetException("Pet with id: " + petId + " not found") 
         ));
     }
 
     @Transactional
     public PetDataTransferObject add(PetDataTransferObject petDataTransferObject){
-        PetDataTransferObject petUpdated =  petMapper.toDTO(petCreateServiceImpl.add(petMapper.toEntity(petDataTransferObject)));
+        PetDataTransferObject petUpdated = mapperService.mapPetToDto(
+            petCreateServiceImpl.add(mapperService.mapToPet(petDataTransferObject))
+        );
         return petUpdated;
     }
 
@@ -61,8 +62,8 @@ public class PetServiceImpl implements PetService {
 
     @Transactional
     public PetDataTransferObject update(Long id, PetDataTransferObject updatedPetDataTransferObject){ 
-        return petMapper.toDTO(
-            petUpdateServiceImpl.update(id, petMapper.toEntity(updatedPetDataTransferObject))
+        return mapperService.mapPetToDto(
+            petUpdateServiceImpl.update(id, mapperService.mapToPet(updatedPetDataTransferObject))
         );
     }
 
@@ -75,6 +76,6 @@ public class PetServiceImpl implements PetService {
     @Transactional
     @Override
     public PetDataTransferObject addRandomPet() {
-        return petMapper.toDTO(petCreateServiceImpl.addRandomPet());
+        return mapperService.mapPetToDto(petCreateServiceImpl.addRandomPet());
     }
 }
