@@ -12,6 +12,7 @@ import org.example.service.util.add.PetCreateService;
 import org.example.service.util.add.impl.PetCreateServiceImpl;
 import org.example.service.util.updates.PetUpdateService;
 import org.example.service.util.updates.impl.PetUpdateServiceImpl;
+import org.example.service.util.usuallycruds.PetUsualFunctionsService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -34,10 +35,13 @@ public class PetServiceConfig {
     public PetService petServiceImpl(
         PetRepository petRepository,
         MapperService mapperService,
+        @Qualifier("petUsualFunctionsService") PetUsualFunctionsService<Pet> usualFunctionsService,
         @Qualifier("petCreateServiceImpl") PetCreateService<Pet> petCreateService,
         @Qualifier("petUpdateServiceImpl") PetUpdateService<Pet> petUpdateService
     ){
-        return new PetServiceImpl(petRepository, mapperService, petCreateService, petUpdateService);
+        return new PetServiceImpl(
+            petRepository, mapperService, usualFunctionsService, petCreateService, petUpdateService
+        );
     }
 
     @Bean("petCreateServiceImpl")

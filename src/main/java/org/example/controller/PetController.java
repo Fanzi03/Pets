@@ -28,7 +28,7 @@ public class PetController implements ControllerHelper{
         @RequestParam(value = "page",defaultValue = "0") int page,
         @RequestParam(value = "size",defaultValue = "10") int size
     ){
-        return ResponseEntity.ok(petService.getPets(PageRequest.of(page, size))); 
+        return ResponseEntity.ok(petService.gets(PageRequest.of(page, size))); 
     }
 
     @GetMapping("/{id}")

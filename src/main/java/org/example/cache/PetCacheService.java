@@ -47,9 +47,9 @@ public class PetCacheService implements PetService, CacheCheckService{
     }
 
     @Override
-    public Page<PetDataTransferObject> getPets(Pageable pageable) {
+    public Page<PetDataTransferObject> gets(Pageable pageable) {
         return getFromCacheOrCompute(CacheKeyGenerator.petsPageKey(pageable.getPageNumber(), pageable.getPageSize()),
-             Page.class, () -> petServiceImpl.getPets(pageable), 3600);
+             Page.class, () -> petServiceImpl.gets(pageable), 3600);
     }
 
     @Override
