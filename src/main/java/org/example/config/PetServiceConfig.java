@@ -3,6 +3,7 @@ package org.example.config;
 import org.example.cache.CacheService;
 import org.example.cache.PetCacheService;
 import org.example.entity.Pet;
+import org.example.kafka.PetKafkaProducer;
 import org.example.mapping.MapperService;
 import org.example.repository.PetRepository;
 import org.example.service.PetService;
@@ -10,6 +11,7 @@ import org.example.service.impl.PetServiceImpl;
 import org.example.service.util.UserResolver;
 import org.example.service.util.add.PetCreateService;
 import org.example.service.util.add.impl.PetCreateServiceImpl;
+import org.example.service.util.delete.PetDeleteService;
 import org.example.service.util.updates.PetUpdateService;
 import org.example.service.util.updates.impl.PetUpdateServiceImpl;
 import org.example.service.util.usuallycruds.PetUsualFunctionsService;
@@ -33,14 +35,15 @@ public class PetServiceConfig {
 
     @Bean("petServiceImpl")
     public PetService petServiceImpl(
-        PetRepository petRepository,
         MapperService mapperService,
-        @Qualifier("petUsualFunctionsService") PetUsualFunctionsService<Pet> usualFunctionsService,
+        PetKafkaProducer petKafkaProducer,
+        @Qualifier("petDeleteServiceImpl") PetDeleteService petDeleteService,
+        @Qualifier("petUsualFunctionsServiceImpl") PetUsualFunctionsService<Pet> usualFunctionsService,
         @Qualifier("petCreateServiceImpl") PetCreateService<Pet> petCreateService,
         @Qualifier("petUpdateServiceImpl") PetUpdateService<Pet> petUpdateService
     ){
         return new PetServiceImpl(
-            petRepository, mapperService, usualFunctionsService, petCreateService, petUpdateService
+            mapperService, petDeleteService, usualFunctionsService, petCreateService, petUpdateService, petKafkaProducer
         );
     }
 

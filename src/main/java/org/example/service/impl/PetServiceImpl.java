@@ -6,14 +6,13 @@ import lombok.experimental.FieldDefaults;
 
 import org.example.dto.PetDataTransferObject;
 import org.example.entity.Pet;
-import org.example.exception.custom.NotFoundPetException;
+import org.example.kafka.PetKafkaProducer;
 import org.example.mapping.MapperService;
-import org.example.repository.PetRepository;
 import org.example.service.PetService;
 import org.example.service.util.add.PetCreateService;
+import org.example.service.util.delete.PetDeleteService;
 import org.example.service.util.updates.PetUpdateService;
 import org.example.service.util.usuallycruds.PetUsualFunctionsService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,17 +22,12 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal =  true)
 @RequiredArgsConstructor
 public class PetServiceImpl implements PetService {
-    PetRepository petRepository;
     MapperService mapperService;
-
-    @Qualifier("petUsualFunctionsService")
+    PetDeleteService petDeleteService;
     PetUsualFunctionsService<Pet> petUsualFunctionsService;
-
-    @Qualifier("petCreateServiceImpl")
     PetCreateService<Pet> petCreateServiceImpl;
-    
-    @Qualifier("petUpdateServiceImpl")
     PetUpdateService<Pet> petUpdateServiceImpl;
+    PetKafkaProducer petKafkaProducer;
 
     public Page<PetDataTransferObject> gets(Pageable pageable) {
         return mapperService.mapPetsToDtoPage(petUsualFunctionsService.gets(pageable));
@@ -53,10 +47,7 @@ public class PetServiceImpl implements PetService {
 
     @Transactional
     public void delete(Long id){
-        Pet pet = petRepository.findById(id).orElseThrow(() -> 
-            new NotFoundPetException("Pet with this id: " + id + " not found"
-        ));
-        petRepository.delete(pet);
+        petDeleteService.delete(id);
     }
 
     @Transactional
@@ -75,6 +66,8 @@ public class PetServiceImpl implements PetService {
     @Transactional
     @Override
     public PetDataTransferObject addRandomPet() {
-        return mapperService.mapPetToDto(petCreateServiceImpl.addRandomPet());
+        Pet petRandom = petCreateServiceImpl.addRandomPet();
+        petKafkaProducer.sendPetToKafka(petRandom);
+        return mapperService.mapPetToDto(petRandom);
     }
 }

@@ -11,12 +11,11 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class UsualFunctionsServiceConfiguration {
 
-    @Bean("petUsualFunctionsService")
+    @Bean("petUsualFunctionsServiceImpl")
     @Primary
     public PetUsualFunctionsService<Pet> petUsualFunctionsService(
         PetRepository petRepository
     ){
         return new PetUsualFunctionsServiceImpl(petRepository);
     }
-    
 }

@@ -1,16 +1,17 @@
 package org.example.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 import java.time.Year;
 
 import org.example.enums.Gender;
-
 
 @Data
 @NoArgsConstructor
@@ -18,24 +19,25 @@ import org.example.enums.Gender;
 @Entity
 @Table(name = "pets")
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String type;
+    Long id;
+    String name;
+    String type;
     @Enumerated(EnumType.STRING)
-    private Gender gender;
-    private int age;
+    Gender gender;
+    int age;
     @Column(name = "birthyear")
-    private int birthYear;
+    int birthYear;
 
     @Column(name = "created_at")
-    private LocalDate createdAt;
+    LocalDate createdAt;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "user_id", nullable = true)
-    private User user;
+    User user;
 
     public void setAge(int age) {
         this.age = age;

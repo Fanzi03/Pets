@@ -16,10 +16,7 @@ public class CustomUserServiseImpl implements UserDetailsService {
 
     @Override
     public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
         return userRepository.findByEmail(username).map(CustomUserDetails::new)
                 .orElseThrow(() -> new NoSuchElementException("User with email " + username + " not found"));
     }
-    
-    
 }
