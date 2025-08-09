@@ -12,9 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ImagePetKafkaConsumer {
    
-    @KafkaListener
+    @KafkaListener(topics = "urls", groupId = "urls-group", 
+    	containerFactory = "kafkaListenerContainerFactory"
+    )
     public void imagePetConsume(String imageUrl){
         
-        log.info("url", imageUrl);
+        log.info("urls", imageUrl);
     }
 }
