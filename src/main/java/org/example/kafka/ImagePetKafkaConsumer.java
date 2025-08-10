@@ -17,6 +17,6 @@ public class ImagePetKafkaConsumer {
     )
     public void imagePetConsume(String imageUrl){
         
-        log.info("urls", imageUrl);
+        log.info("urls: {}", imageUrl);
     }
 }

@@ -66,7 +66,7 @@ public class PetServiceImpl implements PetService {
     @Override
     public PetDataTransferObject addRandomPet() {
         Pet petRandom = petCreateServiceImpl.addRandomPet();
-        petKafkaProducer.sendPetToKafka(petRandom);
+//        petKafkaProducer.sendPetToKafka(petRandom);
         return mapperService.mapPetToDto(petRandom);
     }
 }

@@ -1,0 +1,21 @@
+# Основные библиотеки без строгих версий
+torch
+torchvision
+transformers
+diffusers
+accelerate
+safetensors
+huggingface-hub
+
+# Web фреймворк
+fastapi
+uvicorn[standard]
+pydantic
+
+# Утилиты
+Pillow
+numpy
+aiohttp
+
+# MinIO для хранения изображений
+minio

@@ -1,13 +1,18 @@
 package org.example.controller;
 
 import jakarta.validation.Valid;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.example.controller.util.ControllerHelper;
 import org.example.dto.PetDataTransferObject;
 import org.example.service.PetService;
+import org.example.service.image.ImageService;
+import org.example.service.image.PetImageService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,11 +22,16 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/pets")
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class PetController implements ControllerHelper{
 
     @Qualifier("petCacheService")
-    private final PetService petService;
+    PetService petService;
+
+    PetImageService petImageService;
+    ImageService imageService;
+
 
     @GetMapping
     public ResponseEntity<Page<PetDataTransferObject>> getAllPets(
@@ -47,8 +57,15 @@ public class PetController implements ControllerHelper{
     }
 
     @GetMapping("/add/random")
-    public ResponseEntity<PetDataTransferObject> addRandomPet(){
-        return ResponseEntity.ok(petService.addRandomPet());
+    public ResponseEntity<Map<String, Object>> addRandomPet(){
+	PetDataTransferObject pet = petService.addRandomPet();
+	String url = imageService.generateImage(petImageService.petToPromt(pet));
+	Map<String,Object> response = new HashMap<>();		
+	response.put("Pet with id", pet.getId() + " generated");
+	response.put("Pet: ", pet);
+	response.put("imageUrl:", url);
+		
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")

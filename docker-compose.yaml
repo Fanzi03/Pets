@@ -89,7 +89,47 @@ services:
       retries: 5
     restart: unless-stopped
 
+  local-image:
+    build: 
+      context: ./python_image
+      dockerfile: Dockerfile.model
+    container_name: local-image
+    networks:
+      - shared-network
+    ports:
+      - "8000:8000"
+    depends_on:
+      - minio
+    environment:
+      - HF_MODEL_REPO=runwayml/stable-diffusion-v1-5
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    networks:
+      - shared-network
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data 
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 volumes:
+  minio_data:
   db_data:
   redis_data:
 
