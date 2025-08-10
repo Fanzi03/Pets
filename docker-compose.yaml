@@ -7,6 +7,9 @@ services:
       context: .
       dockerfile: Dockerfile
     image: pets:latest
+    networks:
+      - shared-network
+      - default
     container_name: pets
     ports: 
       - "8088:8088"
@@ -20,6 +23,7 @@ services:
       - SPRING_REDIS_HOST=${SPRING_REDIS_HOST}
       - SPRING_KAFKA_BOOTSTRAP_SERVICES=${SPRING_KAFKA_BOOTSTRAP_SERVICES}
       - SPRING_KAFKA_CONSUMER_GROUP_ID=${SPRING_KAFKA_CONSUMER_GROUP_ID}
+      - IMAGE_AI_URL=${IMAGE_AI_URL}
     depends_on:
       db:
         condition: service_healthy 
@@ -27,6 +31,8 @@ services:
         condition: service_healthy
       kafka:
         condition: service_started
+      local-image: 
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8088/actuator/health"]
       interval: 30s
@@ -103,10 +109,12 @@ services:
     environment:
       - HF_MODEL_REPO=runwayml/stable-diffusion-v1-5
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 60s
+      timeout: 30s
+      retries: 10
+      start_period: 200s
+    restart: unless-stopped
 
   minio:
     image: minio/minio:latest
@@ -123,7 +131,7 @@ services:
       - MINIO_ROOT_PASSWORD=minioadmin
     command: server /data --console-address ":9001"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 10s
       retries: 3

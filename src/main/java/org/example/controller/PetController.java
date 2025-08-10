@@ -61,7 +61,6 @@ public class PetController implements ControllerHelper{
 	PetDataTransferObject pet = petService.addRandomPet();
 	String url = imageService.generateImage(petImageService.petToPromt(pet));
 	Map<String,Object> response = new HashMap<>();		
-	response.put("Pet with id", pet.getId() + " generated");
 	response.put("Pet: ", pet);
 	response.put("imageUrl:", url);
 		
