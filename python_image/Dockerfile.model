@@ -1,27 +1,17 @@
-FROM python:3.10-slim
-
+# Dockerfile.model — минимально рабочая конфигурация для cu128
+FROM nvidia/cuda:12.8.1-runtime-ubuntu22.04   
+ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
 
-# Установка системных зависимостей
-RUN apt-get update && apt-get install -y \
-    curl \
-    git \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y python3.10 python3.10-dev python3-pip \ curl \
+ && ln -sf /usr/bin/python3.10 /usr/bin/python && python -m pip install --upgrade pip
 
-# Обновляем pip
-RUN pip install --upgrade pip
+COPY requirements.txt app.py ./
 
-# Копируем requirements.txt и код
-COPY requirements.txt .
-COPY app.py .
-
-# Устанавливаем зависимости
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Создаем директории
-RUN mkdir -p /models /output
+# Явно ставим torch/torchvision для cu128 из официального индекса
+RUN python -m pip install --no-cache-dir "torch" "torchvision" --index-url https://download.pytorch.org/whl/cu128
+RUN python -m pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8000
-
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+

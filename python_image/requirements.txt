@@ -1,21 +1,9 @@
-# Основные библиотеки без строгих версий
-torch
-torchvision
-transformers
-diffusers
-accelerate
-safetensors
-huggingface-hub
+diffusers==0.31.0
+transformers==4.45.0
+accelerate>=1.0.0
+safetensors>=0.4.5
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+pillow>=10.4.0
+minio>=7.2.0
 
-# Web фреймворк
-fastapi
-uvicorn[standard]
-pydantic
-
-# Утилиты
-Pillow
-numpy
-aiohttp
-
-# MinIO для хранения изображений
-minio

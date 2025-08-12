@@ -103,17 +103,35 @@ services:
     networks:
       - shared-network
     ports:
-      - "8000:8000"
+     - "8000:8000"
     depends_on:
       - minio
+#    devices:
+#       - "nvidia.com/gpu:all"   
+#      - /dev/nvidia0:/dev/nvidia0
+#      - /dev/nvidiactl:/dev/nvidiactl
+#      - /dev/nvidia-uvm:/dev/nvidia-uvm
     environment:
       - HF_MODEL_REPO=runwayml/stable-diffusion-v1-5
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    devices:
+      - nvidia.com/gpu=all
+#    runtime: nvidia
+#    gpus: all
+#    deploy:
+#      resources:
+#        reservations:
+#          devices:
+#            - driver: cdi
+#              device_ids:
+#                - nvidia.com/gpu=all
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 60s
       timeout: 30s
       retries: 10
-      start_period: 200s
+      start_period: 500s
     restart: unless-stopped
 
   minio:

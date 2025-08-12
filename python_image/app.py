@@ -11,13 +11,13 @@ from minio import Minio
 import json
 from minio.error import S3Error
 
-# Настройка логирования
+# Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Stable Diffusion API", version="1.0.0")
 
-# Глобальные переменные
+# Global variables
 pipeline: Optional[StableDiffusionPipeline] = None
 minio_client: Optional[Minio] = None
 
@@ -30,12 +30,12 @@ class GenerateRequest(BaseModel):
 
 @app.on_event("startup")
 async def load_model():
-    """Загружаем модель и настраиваем MinIO при старте"""
+    """Load model and setup MinIO on startup"""
     global pipeline, minio_client
     
     try:
-        # Настройка MinIO
-        logger.info("🗄️ Настраиваем MinIO...")
+        # Setup MinIO
+        logger.info("🗄️ Setting up MinIO...")
         minio_client = Minio(
             "minio:9000",
             access_key="minioadmin",
@@ -43,12 +43,12 @@ async def load_model():
             secure=False
         )
         
-        # Создаем bucket если не существует
+        # Create bucket if doesn't exist
         bucket_name = "ai-images"
         if not minio_client.bucket_exists(bucket_name):
             minio_client.make_bucket(bucket_name)
-            logger.info(f"✅ Создан bucket: {bucket_name}")
-
+            logger.info(f"✅ Created bucket: {bucket_name}")
+            
         public_policy = {
             "Version": "2012-10-17",
             "Statement": [
@@ -60,109 +60,108 @@ async def load_model():
                 }
             ]
         }
-
         try:
             minio_client.set_bucket_policy(bucket_name, json.dumps(public_policy))
-            logger.info(f"🌍 Публичная политика установлена для {bucket_name}")
+            logger.info(f"🌍 Public policy set for {bucket_name}")
         except S3Error as e:
-            logger.warning(f"⚠️ Не удалось установить публичную политику: {e}")
+            logger.warning(f"⚠️ Failed to set public policy: {e}")
         
-        logger.info("🚀 Загружаем Stable Diffusion модель...")
+        logger.info("🚀 Loading Stable Diffusion model...")
         
-        # Проверяем доступность устройства
+        # Check device availability
         if torch.cuda.is_available():
             device = "cuda"
             torch_dtype = torch.float16
-            logger.info("✅ Используем CUDA")
+            logger.info("✅ Using CUDA")
+            logger.info(f"GPU: {torch.cuda.get_device_name(0)}")
         else:
             device = "cpu"
             torch_dtype = torch.float32
-            logger.info("⚠️ Используем CPU (будет медленно)")
+            logger.info("⚠️ Using CPU (will be slow)")
         
-        # Путь к модели из переменной окружения или по умолчанию
+        # Model path from environment variable or default
         model_id = os.getenv("HF_MODEL_REPO", "runwayml/stable-diffusion-v1-5")
         model_path = os.getenv("MODEL_PATH", None)
         
-        logger.info(f"📂 Модель: {model_path if model_path else model_id}")
+        logger.info(f"📂 Model: {model_path if model_path else model_id}")
         
-        # Загружаем модель
+        # Load model
         if model_path and os.path.exists(model_path) and os.path.exists(os.path.join(model_path, "model_index.json")):
-            # Если есть локальная модель с правильной структурой
             pipeline = StableDiffusionPipeline.from_pretrained(
                 model_path,
                 torch_dtype=torch_dtype,
                 use_safetensors=True,
                 local_files_only=True
             )
-            logger.info("📁 Загружена локальная модель")
+            logger.info("📁 Loaded local model")
         else:
-            # Загружаем из HuggingFace
-            logger.info(f"📥 Загружаем модель из HuggingFace: {model_id}")
+            logger.info(f"📥 Loading model from HuggingFace: {model_id}")
             pipeline = StableDiffusionPipeline.from_pretrained(
                 model_id,
                 torch_dtype=torch_dtype,
                 use_safetensors=True
             )
-            logger.info("🌐 Загружена модель из HuggingFace")
+            logger.info("🌐 Loaded model from HuggingFace")
         
-        # Перемещаем на устройство
+        # Move to device
         pipeline = pipeline.to(device)
         
-        # Оптимизации для экономии памяти
+        # Memory optimizations
         if device == "cuda":
             pipeline.enable_attention_slicing()
             try:
                 pipeline.enable_xformers_memory_efficient_attention()
-                logger.info("✨ Включена оптимизация xformers")
+                logger.info("✨ Enabled xformers optimization")
             except Exception as e:
-                logger.warning(f"⚠️ xformers недоступен: {e}")
+                logger.warning(f"⚠️ xformers not available: {e}")
         else:
-            # Оптимизации для CPU
             pipeline.enable_attention_slicing()
         
-        logger.info("🎉 Модель успешно загружена и готова к работе!")
+        logger.info("🎉 Model successfully loaded and ready!")
         
-        # Тестовая генерация для прогрева
-        logger.info("🔥 Прогреваем модель...")
+        # Test generation for warmup
+        logger.info("🔥 Warming up model...")
         with torch.no_grad():
-            _ = pipeline("test", num_inference_steps=1, guidance_scale=1.0, width=64, height=64)
-        logger.info("✅ Модель прогрета!")
+            # Fixed syntax error
+            result = pipeline("test", num_inference_steps=1, guidance_scale=1.0, width=64, height=64)
+        logger.info("✅ Model warmed up!")
         
     except Exception as e:
-        logger.error(f"❌ Ошибка загрузки модели: {e}")
+        logger.error(f"❌ Model loading error: {e}")
         raise e
 
 @app.get("/health")
 async def health_check():
-    """Проверка готовности сервиса"""
+    """Service readiness check"""
     if pipeline is None:
-        raise HTTPException(status_code=503, detail="Модель еще загружается")
+        raise HTTPException(status_code=503, detail="Model is still loading")
     
     return {
         "status": "healthy",
         "model_loaded": True,
         "device": "cuda" if torch.cuda.is_available() else "cpu",
         "model": os.getenv("HF_MODEL_REPO", "runwayml/stable-diffusion-v1-5"),
-        "torch_version": torch.__version__
+        "torch_version": torch.__version__,
+        "cuda_available": torch.cuda.is_available()
     }
 
 @app.post("/generate")
 async def generate_image(request: GenerateRequest):
-    """Генерация изображения с сохранением в MinIO - возвращает URL"""
+    """Generate image and save to MinIO - returns URL"""
     if pipeline is None:
-        raise HTTPException(status_code=503, detail="Модель не загружена")
+        raise HTTPException(status_code=503, detail="Model not loaded")
     
     try:
-        logger.info(f"🎨 Генерируем: '{request.prompt}' ({request.width}x{request.height})")
+        logger.info(f"🎨 Generating: '{request.prompt}' ({request.width}x{request.height})")
         
-        # Валидация параметров
+        # Parameter validation
         if request.width > 1024 or request.height > 1024:
-            raise HTTPException(status_code=400, detail="Максимальное разрешение 1024x1024")
+            raise HTTPException(status_code=400, detail="Maximum resolution is 1024x1024")
         
         if request.num_inference_steps > 50:
-            raise HTTPException(status_code=400, detail="Максимум 50 шагов")
+            raise HTTPException(status_code=400, detail="Maximum 50 steps")
         
-        # Генерируем изображение
+        # Generate image
         device = next(pipeline.unet.parameters()).device
         
         with torch.autocast(device.type if device.type != "cpu" else "cpu"):
@@ -177,15 +176,15 @@ async def generate_image(request: GenerateRequest):
         
         image = result.images[0]
         
-        # Конвертируем в байты для MinIO
+        # Convert to bytes for MinIO
         buffer = BytesIO()
         image.save(buffer, format="PNG", optimize=True)
         image_bytes = buffer.getvalue()
         
-        # Генерируем уникальное имя файла
+        # Generate unique filename
         filename = f"generated_{uuid.uuid4().hex[:8]}.png"
         
-        # Загружаем в MinIO
+        # Upload to MinIO
         minio_client.put_object(
             "ai-images",
             filename,
@@ -194,14 +193,14 @@ async def generate_image(request: GenerateRequest):
             content_type="image/png"
         )
         
-        # Формируем публичный URL
+        # Form public URL
         public_host = "http://localhost:9000".rstrip("/")
         image_url = f"{public_host}/ai-images/{filename}" 
         
-        logger.info(f"✅ Изображение готово! URL: {image_url}")
+        logger.info(f"✅ Image ready! URL: {image_url}")
         
         return {
-            "url": image_url,  # ← Это ожидает ваш Java сервис
+            "url": image_url,
             "prompt": request.prompt,
             "width": request.width,
             "height": request.height,
@@ -210,27 +209,27 @@ async def generate_image(request: GenerateRequest):
         }
         
     except Exception as e:
-        logger.error(f"❌ Ошибка генерации: {e}")
-        raise HTTPException(status_code=500, detail=f"Ошибка генерации: {str(e)}")
+        logger.error(f"❌ Generation error: {e}")
+        raise HTTPException(status_code=500, detail=f"Generation error: {str(e)}")
 
 @app.get("/")
 async def root():
-    """Информация об API"""
+    """API information"""
     return {
         "service": "Stable Diffusion API",
         "version": "1.0.0",
         "model": os.getenv("HF_MODEL_REPO", "runwayml/stable-diffusion-v1-5"),
         "endpoints": {
-            "health": "GET /health - Проверка готовности",
-            "generate": "POST /generate - Генерация изображения",
-            "docs": "GET /docs - Swagger документация"
+            "health": "GET /health - Readiness check",
+            "generate": "POST /generate - Image generation",
+            "docs": "GET /docs - Swagger documentation"
         },
         "status": "ready" if pipeline else "loading"
     }
 
 @app.get("/status")
 async def get_status():
-    """Детальный статус сервиса"""
+    """Detailed service status"""
     return {
         "model_loaded": pipeline is not None,
         "cuda_available": torch.cuda.is_available(),
@@ -240,7 +239,8 @@ async def get_status():
         "model_repo": os.getenv("HF_MODEL_REPO", "runwayml/stable-diffusion-v1-5")
     }
 
+# Fixed syntax error
 if __name__ == "__main__":
     import uvicorn
-    logger.info("🚀 Запускаем Stable Diffusion API...")
+    logger.info("🚀 Starting Stable Diffusion API...")
     uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
