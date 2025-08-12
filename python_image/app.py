@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import torch
 from diffusers import StableDiffusionPipeline
+import base64
 from io import BytesIO
 import logging
 from typing import Optional
@@ -79,7 +80,7 @@ async def load_model():
             torch_dtype = torch.float32
             logger.info("⚠️ Using CPU (will be slow)")
         
-        # Model path from environment variable or default
+        # Model path from environment or default
         model_id = os.getenv("HF_MODEL_REPO", "runwayml/stable-diffusion-v1-5")
         model_path = os.getenv("MODEL_PATH", None)
         
@@ -87,6 +88,7 @@ async def load_model():
         
         # Load model
         if model_path and os.path.exists(model_path) and os.path.exists(os.path.join(model_path, "model_index.json")):
+            # Load local model
             pipeline = StableDiffusionPipeline.from_pretrained(
                 model_path,
                 torch_dtype=torch_dtype,
@@ -95,7 +97,7 @@ async def load_model():
             )
             logger.info("📁 Loaded local model")
         else:
-            logger.info(f"📥 Loading model from HuggingFace: {model_id}")
+            # Load from HuggingFace
             pipeline = StableDiffusionPipeline.from_pretrained(
                 model_id,
                 torch_dtype=torch_dtype,
@@ -115,15 +117,15 @@ async def load_model():
             except Exception as e:
                 logger.warning(f"⚠️ xformers not available: {e}")
         else:
+            # CPU optimizations
             pipeline.enable_attention_slicing()
         
-        logger.info("🎉 Model successfully loaded and ready!")
+        logger.info("🎉 Model loaded successfully and ready!")
         
-        # Test generation for warmup
+        # Warmup generation
         logger.info("🔥 Warming up model...")
         with torch.no_grad():
-            # Fixed syntax error
-            result = pipeline("test", num_inference_steps=1, guidance_scale=1.0, width=64, height=64)
+            _ = pipeline("test", num_inference_steps=1, guidance_scale=1.0, width=64, height=64)
         logger.info("✅ Model warmed up!")
         
     except Exception as e:
@@ -141,13 +143,12 @@ async def health_check():
         "model_loaded": True,
         "device": "cuda" if torch.cuda.is_available() else "cpu",
         "model": os.getenv("HF_MODEL_REPO", "runwayml/stable-diffusion-v1-5"),
-        "torch_version": torch.__version__,
-        "cuda_available": torch.cuda.is_available()
+        "torch_version": torch.__version__
     }
 
 @app.post("/generate")
 async def generate_image(request: GenerateRequest):
-    """Generate image and save to MinIO - returns URL"""
+    """Image generation with MinIO storage - returns URL and base64"""
     if pipeline is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
     
@@ -156,7 +157,7 @@ async def generate_image(request: GenerateRequest):
         
         # Parameter validation
         if request.width > 1024 or request.height > 1024:
-            raise HTTPException(status_code=400, detail="Maximum resolution is 1024x1024")
+            raise HTTPException(status_code=400, detail="Maximum resolution 1024x1024")
         
         if request.num_inference_steps > 50:
             raise HTTPException(status_code=400, detail="Maximum 50 steps")
@@ -176,15 +177,17 @@ async def generate_image(request: GenerateRequest):
         
         image = result.images[0]
         
-        # Convert to bytes for MinIO
+        # Convert to bytes
         buffer = BytesIO()
         image.save(buffer, format="PNG", optimize=True)
         image_bytes = buffer.getvalue()
         
-        # Generate unique filename
+        # Convert to base64 for Java compatibility
+        image_base64 = base64.b64encode(image_bytes).decode()
+        
+        # Generate unique filename and upload to MinIO
         filename = f"generated_{uuid.uuid4().hex[:8]}.png"
         
-        # Upload to MinIO
         minio_client.put_object(
             "ai-images",
             filename,
@@ -200,7 +203,8 @@ async def generate_image(request: GenerateRequest):
         logger.info(f"✅ Image ready! URL: {image_url}")
         
         return {
-            "url": image_url,
+            "image": image_base64,  # For Java compatibility
+            "url": image_url,       # MinIO URL
             "prompt": request.prompt,
             "width": request.width,
             "height": request.height,
@@ -239,7 +243,6 @@ async def get_status():
         "model_repo": os.getenv("HF_MODEL_REPO", "runwayml/stable-diffusion-v1-5")
     }
 
-# Fixed syntax error
 if __name__ == "__main__":
     import uvicorn
     logger.info("🚀 Starting Stable Diffusion API...")

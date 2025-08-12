@@ -131,7 +131,7 @@ services:
       interval: 60s
       timeout: 30s
       retries: 10
-      start_period: 500s
+      start_period: 200s # make it less depends on your devices
     restart: unless-stopped
 
   minio:
